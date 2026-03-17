@@ -1,0 +1,103 @@
+--- shot nacional ---
+
+                <div class="col-12  nopadding">
+                  <div class="title">
+                    Shot Nacional
+                  </div>
+
+                  
+                  
+                                      <div class="small-tag float-right">
+                                              <span class="cket-tag">11<small>%</small> of sales </span>
+                                          </div>
+                  
+
+                </div>
+
+                <div class="col-12 col-sm-4 nopadding" style="padding-left: 10px">
+                    <div class="extraline" style="font-weight: bold">
+                      <b>Total</b>
+                    </div>
+                    <div class="extraline_nopadding">
+                      <b>Total</b>: 716,00<small>€</small>
+                    </div>
+                    <div class="extraline_nopadding">
+                      <b>Quantity</b>: 716
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-4 nopadding" style="padding-left: 10px">
+                  <div class="extraline" style="font-weight: bold">
+                                      </div>
+                  <div class="extraline_nopadding">
+                                      </div>
+                  <div class="extraline_nopadding">
+                                      </div>
+
+                </div>
+
+                <div class="col-12 col-sm-4 nopadding">
+
+                  <div class="extraline" style="font-weight: bold">
+                                      </div>
+                  <div class="extraline_nopadding">
+                                      </div>
+                  <div class="extraline_nopadding">
+                                      </div>
+
+                </div>
+
+              
+
+--- shot estrangeiro ---
+
+                <div class="col-12  nopadding">
+                  <div class="title">
+                    Shot Estrangeiro
+                  </div>
+
+                  
+                  
+                                      <div class="small-tag float-right">
+                                              <span class="cket-tag">Less than 1<small>%</small> of sales </span>
+
+                                          </div>
+                  
+
+                </div>
+
+                <div class="col-12 col-sm-4 nopadding" style="padding-left: 10px">
+                    <div class="extraline" style="font-weight: bold">
+                      <b>Total</b>
+                    </div>
+                    <div class="extraline_nopadding">
+                      <b>Total</b>: 12,00<small>€</small>
+                    </div>
+                    <div class="extraline_nopadding">
+                      <b>Quantity</b>: 6
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-4 nopadding" style="padding-left: 10px">
+                  <div class="extraline" style="font-weight: bold">
+                                      </div>
+                  <div class="extraline_nopadding">
+                                      </div>
+                  <div class="extraline_nopadding">
+                                      </div>
+
+                </div>
+
+                <div class="col-12 col-sm-4 nopadding">
+
+                  <div class="extraline" style="font-weight: bold">
+                                      </div>
+                  <div class="extraline_nopadding">
+                                      </div>
+                  <div class="extraline_nopadding">
+                                      </div>
+
+                </div>
+
+              
+

@@ -1,0 +1,1063 @@
+<style>
+	body{
+		margin: 32px !important;
+</style>
+
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="shortcut icon" href="https://assets.3cket.com/assets/favicon-16x16.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="https://assets.3cket.com/assets/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://assets.3cket.com/assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://assets.3cket.com/assets/favicon-16x16.png">
+<link rel="manifest" href="https://assets.3cket.com/assets/site.webmanifest">
+<link rel="mask-icon" href="https://assets.3cket.com/assets/safari-pinned-tab.svg" color="#44338e">
+<meta name="application-name" content="My 3cket">
+<meta name="msapplication-TileColor" content="#603cba">
+<meta name="theme-color" content="#ffffff">
+
+<!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="//app.3cket.com/lib/bootstrap/css/bootstrap.css">
+  <link href="//app.3cket.com/lib/bootstrap/css/floating-labels.css" rel="stylesheet">
+  <link href="//app.3cket.com/lib/bootstrap/css/nav.css" rel="stylesheet">
+  <link href="//app.3cket.com/lib/bootstrap/css/pricing.css" rel="stylesheet">
+  <link rel="stylesheet" href="//app.3cket.com/lib/phone/intlTelInput.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+
+
+<!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script type="text/javascript" src="//app.3cket.com/lib/bootstrap/js/jquery-3.2.1.slim.min.js"></script>
+
+  <link crossorigin="anonymous" rel="stylesheet" href="https://assets.3cket.com/assets/build/backofficeBundle.460dbb92.css" integrity="sha384-lQ1fFmi3+GTB5uR8FaPkMKkAbXakxN+y6HK91z1Mqr0sj0UDEB+X/Y7hIT/EZnjc">
+
+  <script crossorigin="anonymous" src="https://assets.3cket.com/assets/build/runtime.e50ae681.js" integrity="sha384-+WIDJVuarU1Tp9TBxpm7h/R6+av6zcar85OwGw4u5FOruEplvr8gwOYFTGmlyrAv"></script><script crossorigin="anonymous" src="https://assets.3cket.com/assets/build/0.8a715531.js" integrity="sha384-kSuvaxHOLXwAeWTSy/3tjok2qhWGryegE+ItOB43a+az9oId7ILgYc1peeMB+ATU"></script><script crossorigin="anonymous" src="https://assets.3cket.com/assets/build/1.7a8acd53.js" integrity="sha384-Jq7XjfV58j5BJN6Vt7hdAX/SI7CNaExwu4aSeSREniiBN8GIcX3zmSdicdk/OQpG"></script><script crossorigin="anonymous" src="https://assets.3cket.com/assets/build/backofficeBundle.f7d4ddd5.js" integrity="sha384-if5rKoUgepYdwCBVFGEeXTWlAmW28UA74TUnnfAkGcm6pOgybw96lBmSTYnF9OHC"></script>
+  <script src="//app.3cket.com/lib/bootstrap/js/bootstrap.bundle.min.js" ></script>
+
+  <!-- Datepicker -->
+  <script src="//app.3cket.com/lib/bootstrap/js/datepicker.min.js" type="text/javascript"></script>
+
+  <!-- Para substituir o link a baixo mas os icons desaparecem
+  <link href="/lib/bootstrap/css/datepicker.min.css" rel="stylesheet" type="text/css" />
+  -->
+  <link href="//cdn.jsdelivr.net/gh/atatanasov/gijgo@1.8.0/dist/combined/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+
+<!-- JS for dynamic tables do RICARDAOOOO -->
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.6.3/css/all.css">
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></link>
+<link rel="stylesheet" href="//cdn.datatables.net/buttons/1.5.2/css/buttons.bootstrap4.min.css"></link>
+
+<script type="text/javascript" src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap4.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
+
+
+<!--- IBAN mask -->
+<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js"></script>
+
+<!--- Charts JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+<h5>Ninf + Tokuskopus → POS</h5><style>
+  label{
+    padding-left: 20px !important;
+  }
+  .cashless-nav .scrollmenu {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  .cashless-nav .scrollmenu a {
+    display: inline-block;
+  }
+  .cashless-nav .scrollmenu-links {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 8px;
+    overflow-x: auto;
+  }
+  .cashless-nav .scrollmenu-links a {
+    flex: 0 0 auto;
+  }
+  .cashless-nav .scrollmenu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  .cashless-nav .cashless-search-trigger {
+    margin-left: 0;
+  }
+  @media (max-width: 767.98px) {
+    .cashless-nav .cashless-search-trigger {
+      margin-left: 0;
+      flex-basis: 100%;
+      order: 2;
+    }
+  }
+  .quick-range-btn.active,
+  .quick-range-btn[aria-pressed="true"] {
+    background-color: #452f87;
+    color: #fff;
+    border-color: #452f87;
+  }
+  .quick-range-btn.is-selected {
+    background-color: #452f87 !important;
+    color: #fff !important;
+    border-color: #452f87 !important;
+  }
+  .quick-range-btn[data-selected="true"] {
+    background-color: #452f87 !important;
+    color: #fff !important;
+    border-color: #452f87 !important;
+  }
+  /* Force the same active color for both day and custom buttons */
+  .btn-outline-primary.quick-range-btn.active,
+  .btn-outline-primary.quick-range-btn.is-selected,
+  .btn-outline-primary.quick-range-btn[aria-pressed="true"],
+  .quick-range-btn[data-selected="true"] {
+    background-color: #452f87 !important;
+    color: #fff !important;
+    border-color: #452f87 !important;
+  }
+  /* Quick range tag selected style */
+  .quick-range-tag.selected {
+    background-color: #452f87 !important;
+    color: #fff !important;
+    border-color: #452f87 !important;
+  }
+</style>
+
+<div class="row nopadding">
+  <h1>Cashless</h1>
+</div>
+
+<div class="row nopadding submenu cashless-nav">
+  <div class="scrollmenu">
+    <div class="scrollmenu-links">
+              <a href="https://services.3cket.com/staff/cashless.php?search_workzone=&amp;search_staff=98b0df709d424bb3bb29714a744fe58e&amp;subPage=total&amp;start_date=17-10-2024 23:09&amp;end_date=18-03-2026 12:31&amp;search_product=&amp;month_view=0&amp;view_mode=total" class="selected">Overview</a>
+        <a href="https://services.3cket.com/staff/cashless.php?search_workzone=&amp;search_staff=98b0df709d424bb3bb29714a744fe58e&amp;subPage=byProducts&amp;start_date=17-10-2024 23:09&amp;end_date=18-03-2026 12:31&amp;search_product=&amp;month_view=0&amp;view_mode=total" class="">By products</a>
+        <a href="https://services.3cket.com/staff/cashless.php?search_workzone=&amp;search_staff=98b0df709d424bb3bb29714a744fe58e&amp;subPage=export&amp;start_date=17-10-2024 23:09&amp;end_date=18-03-2026 12:31&amp;search_product=&amp;month_view=0&amp;view_mode=total" class="">Export</a>
+          </div>
+    <span data-toggle="modal" data-target="#searchModal" class="btn btn-lg cashless-search-trigger" style="cursor: pointer; padding: 8px; color: #452f87; font-weight: bold; font-size: 15px">  🔎 Search</span>
+  </div>
+</div>
+
+<div class="modal cket-panel-right cket-panel-fadeInRight" id="searchModal">
+  <div class="cket-panel modal-dialog cket-panel-dialog">
+    <div class="modal-content cket-panel-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Search</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body cket-panel-body">
+
+        <div id="row_search" class="row ">
+          <div class="col-12 nopadding">
+            <div class="row nopadding">
+
+              <div class="row nopadding mb-2" style="padding-bottom: 0; margin-bottom: 0 !important;">
+                <div class="col-12" style="padding: 0">
+                  <div class="btn-group flex-wrap" role="group" aria-label="Date quick filters">
+                                          <span id="day-btn-1"
+                            class="badge badge-pill badge-outline-primary quick-range-tag m-1"
+                            style="cursor:pointer; border:1px solid #452f87; color:#452f87; padding:8px 12px; font-size:14px; border-radius: 8px"
+                            onclick="selectDayTag('day-btn-1', '17-10-2024 21:00', '18-10-2024 07:00')">
+                        17-10-2024
+                      </span>
+                                          <span id="day-btn-2"
+                            class="badge badge-pill badge-outline-primary quick-range-tag m-1"
+                            style="cursor:pointer; border:1px solid #452f87; color:#452f87; padding:8px 12px; font-size:14px; border-radius: 8px"
+                            onclick="selectDayTag('day-btn-2', '18-10-2024 15:46', '19-10-2024 23:00')">
+                        18-10-2024
+                      </span>
+                                          <span id="day-btn-3"
+                            class="badge badge-pill badge-outline-primary quick-range-tag m-1"
+                            style="cursor:pointer; border:1px solid #452f87; color:#452f87; padding:8px 12px; font-size:14px; border-radius: 8px"
+                            onclick="selectDayTag('day-btn-3', '19-10-2024 19:13', '20-10-2024 07:00')">
+                        19-10-2024
+                      </span>
+                                          <span id="day-btn-4"
+                            class="badge badge-pill badge-outline-primary quick-range-tag m-1"
+                            style="cursor:pointer; border:1px solid #452f87; color:#452f87; padding:8px 12px; font-size:14px; border-radius: 8px"
+                            onclick="selectDayTag('day-btn-4', '20-10-2024 20:42', '21-10-2024 07:00')">
+                        20-10-2024
+                      </span>
+                                      </div>
+                </div>
+              </div>
+
+              <form action="" method="get">
+                <div id="row_search" class="nopadding row-search">
+                  <div class="row nopadding" style="padding-top: 0">
+
+                    <div id="custom-date-fields" class="w-100">
+                      <div class="col-12 cket-input search-item" id="datetimepicker1" data-target-input="nearest" >
+                        <div class="cket-input-container">
+                          <input type="text" id="inputStartDateTime"  name="start_date" class="form-control datetimepicker-input" data-target="#datetimepicker1" data-toggle="datetimepicker" value="17-10-2024 23:09"  autocomplete="off">
+                          <label for="start_date">From</label>
+                        </div>
+                      </div>
+
+                      <div class="col-12 cket-input search-item"  id="datetimepicker2" data-target-input="nearest" >
+                        <div class="cket-input-container">
+                          <input type="text" id="inputEndDateTime" name="end_date" class="form-control datetimepicker-input" data-target="#datetimepicker2" data-toggle="datetimepicker" value="18-03-2026 12:31" autocomplete="off">
+                          <label for="end_date">To</label>
+                        </div>
+                      </div>
+                    </div>
+
+                                          <input type="hidden" id="search_staff" name="search_staff" class="form-control" value="98b0df709d424bb3bb29714a744fe58e" autocomplete="off">
+                    
+                    <div class="col-12 cket-input search-item cket-select-with-label" >
+                      <div class="cket-input-container">
+                        <label for="search_product" class="cket-select-label" >Products</label>
+                        <select name="search_product" id="search_product">
+                          <option value="">Products</option>
+                                                                                                                                                                        <optgroup label="Bebidas c/ Álcool">
+                                                                                      <option value="499a0332a7994a7b996ec6e9ae8b931f" >Bebida Branca Estrangeira</option>
+                                                                                                                                          <option value="b5db027488054008ad2a389bb0f67f3a" >Bebida Branca Nacional</option>
+                                                                                                                                          <option value="10895b663f0d4d6e8c29218252860829" >Bebida de Curso</option>
+                                                                                                                                          <option value="4df2a4851b86403f8cc0462c61f89ac0" >FIni Arraial</option>
+                                                                                                                                          <option value="8cfe495181964e4087829f42f78defc0" >Fino</option>
+                                                                                                                                          <option value="52d9c19568f843dc99b72865451ba0a0" >Licor Beirão</option>
+                                                                                                                                          <option value="8dcf0739791b497ba97c49ac2fd07a95" >Shot Estrangeiro</option>
+                                                                                                                                          <option value="67a00461dd684601aa20628e72564aa4" >Shot Nacional</option>
+                                                                                                                                          <option value="12950810714541b2a64808e839cac4c9" >Sidra</option>
+                                                                                                                                            </optgroup>                              <optgroup label="Copo">
+                                                                                      <option value="7c38740eef8048e6a25a756d13fd2ea9" >Copo Shot</option>
+                                                                                                                                            </optgroup>                              <optgroup label="Águas e Sumos">
+                                                                                      <option value="6a6f0d2a5cef4ac0bad30879cc7b3592" >Copo de Sumo</option>
+                                                                                                                                          <option value="4eab0eb6736f413b9d9e43653597b8e0" >Redbull</option>
+                                                                                                                                          <option value="5d6785c6f5dd47ce9674cca9f987df79" >Água</option>
+                            </optgroup>                                                  </select>
+                      </div>
+                    </div>
+
+                    <div class="col-12 cket-input search-item" >
+                      <input type="hidden" id="subPage" name="subPage" value="">
+                      <input type="hidden" id="view_mode" name="view_mode" value="total">
+                      <input type="hidden" id="month_view" name="month_view" value="0">
+
+                      <button type="submit" id="submitBtn" class="btn btn-lg btn-primary cket-btn" onclick="loader()">
+                        <div id="btntext">Submit </div>
+                        <div class="lds-ellipsis" id="loader" style="display: none">
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+  <script>
+    $('#datetimepicker1').datetimepicker({
+      format: 'DD-MM-YYYY HH:mm',
+      icons: {
+        time: 'far fa-clock',
+        date: 'far fa-calendar-alt',
+        up: 'fas fa-arrow-up',
+        down: 'fas fa-arrow-down',
+        previous: 'fas fa-chevron-left',
+        next: 'fas fa-chevron-right',
+        today: 'far fa-calendar-check',
+        clear: 'far fa-trash-alt',
+        close: 'fas fa-times'
+      }
+    });
+
+    $('#datetimepicker2').datetimepicker({
+      format: 'DD-MM-YYYY HH:mm',
+      useCurrent: false, // prevent auto-setting to now / minDate
+      icons: {
+        time: 'far fa-clock',
+        date: 'far fa-calendar-alt',
+        up: 'fas fa-arrow-up',
+        down: 'fas fa-arrow-down',
+        previous: 'fas fa-chevron-left',
+        next: 'fas fa-chevron-right',
+        today: 'far fa-calendar-check',
+        clear: 'far fa-trash-alt',
+        close: 'fas fa-times'
+      }
+    });
+
+    $("#datetimepicker1").on("change.datetimepicker", function (e) {
+      // If we just clicked a quick-range tag, enforce minDate and preserve end unless it's < start
+      if (window._qrIgnoreNextStartChange) {
+        window._qrIgnoreNextStartChange = false;
+        checkAndSelectMatchingTag();
+        return;
+      }
+
+      checkAndSelectMatchingTag();
+    });
+
+    // Fallback for manual typing in the start input
+    $('#inputStartDateTime').on('change blur', function () {
+      var start = moment($(this).val(), 'DD-MM-YYYY HH:mm', true);
+      if (!start.isValid()) return;
+
+      if (window._qrIgnoreNextStartChange) {
+        var prevEnd = $('#datetimepicker2').datetimepicker('date');
+        $('#datetimepicker2').datetimepicker('minDate', start);
+
+        if (prevEnd) {
+          if (prevEnd.isBefore(start)) {
+            $('#datetimepicker2').datetimepicker('date', start);
+            $('#inputEndDateTime').val(start.format('DD-MM-YYYY HH:mm'));
+          } else {
+            $('#datetimepicker2').datetimepicker('date', prevEnd);
+            $('#inputEndDateTime').val(prevEnd.format('DD-MM-YYYY HH:mm'));
+          }
+        }
+
+        window._qrIgnoreNextStartChange = false;
+        checkAndSelectMatchingTag();
+        return;
+      }
+
+      $('#datetimepicker2').datetimepicker('minDate', start);
+      var endMoment = $('#datetimepicker2').datetimepicker('date');
+      if (endMoment && endMoment.isBefore(start)) {
+        $('#datetimepicker2').datetimepicker('date', start);
+        $('#inputEndDateTime').val(start.format('DD-MM-YYYY HH:mm'));
+      }
+      checkAndSelectMatchingTag();
+    });
+
+    function selectSearch() {
+      var search = Number($("#search").val());
+
+      if(search === 0) {
+        $('#row_search').show();
+        $('#expand').hide();
+        $('#minimize').show();
+        $('#search').val(1);
+      }
+      else{
+        $('#row_search').hide();
+        $('#expand').show();
+        $('#minimize').hide();
+        $('#search').val(0);
+      }
+    }
+
+    function loader() {
+      $('#btntext').hide();
+
+      $('#loader').show();
+    }
+    function setActiveStates($activeBtn) {
+      var $all = $('.js-day-btn');
+      // Clear active state from all quick buttons
+      $all.removeClass('active is-selected').attr({'aria-pressed':'false', 'data-selected':'false'});
+      if ($activeBtn && $activeBtn.length) {
+        $activeBtn.addClass('active is-selected').attr({'aria-pressed':'true', 'data-selected':'true'});
+      }
+    }
+
+    // Tag-style quick range selection with toggle/deselect support
+    function selectDayTag(tagId, start, end) {
+      var $tag = $('#' + tagId);
+      var isSelected = $tag.hasClass('selected');
+
+      // Defaults from server (escape for JS)
+      var defStart = '17\u002D10\u002D2024\u002023\u003A09';
+      var defEnd   = '18\u002D03\u002D2026\u002012\u003A31';
+
+      if (isSelected) {
+        // Deselect: clear all and restore default event dates
+        $('.quick-range-tag').removeClass('selected');
+
+        // Inputs
+        $('#inputStartDateTime').val(defStart);
+        $('#inputEndDateTime').val(defEnd);
+
+        // Pickers
+        var mDefStart = moment(defStart, 'DD-MM-YYYY HH:mm');
+        var mDefEnd   = moment(defEnd,   'DD-MM-YYYY HH:mm');
+
+        if ($('#datetimepicker1').data('datetimepicker')) {
+          $('#datetimepicker1').datetimepicker('date', mDefStart);
+        }
+        if ($('#datetimepicker2').data('datetimepicker')) {
+          $('#datetimepicker2').datetimepicker('minDate', mDefStart);
+          $('#datetimepicker2').datetimepicker('date', mDefEnd);
+        }
+
+        checkAndSelectMatchingTag();
+        return;
+      }
+
+      // Select: mark only this tag and apply its range
+      window._qrIgnoreNextStartChange = true;
+      $('.quick-range-tag').removeClass('selected');
+      $tag.addClass('selected');
+
+      // Inputs
+      $('#inputStartDateTime').val(start);
+      $('#inputEndDateTime').val(end);
+
+      // Pickers
+      var mStart = moment(start, 'DD-MM-YYYY HH:mm');
+      var mEnd   = moment(end,   'DD-MM-YYYY HH:mm');
+
+      if ($('#datetimepicker1').data('datetimepicker')) {
+        $('#datetimepicker1').datetimepicker('date', mStart);
+      }
+      if ($('#datetimepicker2').data('datetimepicker')) {
+        $('#datetimepicker2').datetimepicker('minDate', mStart);
+        $('#datetimepicker2').datetimepicker('date', mEnd);
+      }
+
+      checkAndSelectMatchingTag();
+    }
+
+    function clearSelectedDayTags() {
+      $('.quick-range-tag').removeClass('selected');
+    }
+    // Listen for changes on the end date picker to clear selected day tags
+    $("#datetimepicker2").on("change.datetimepicker", function (e) {
+      checkAndSelectMatchingTag();
+    });
+
+    function checkAndSelectMatchingTag() {
+      const curStart = $('#inputStartDateTime').val();
+      const curEnd = $('#inputEndDateTime').val();
+      let matched = false;
+
+      $('.quick-range-tag').each(function () {
+        const $tag = $(this);
+        const onclickAttr = $tag.attr('onclick');
+        if (onclickAttr.includes(curStart) && onclickAttr.includes(curEnd)) {
+          $('.quick-range-tag').removeClass('selected');
+          $tag.addClass('selected');
+          matched = true;
+          return false; // break loop
+        }
+      });
+
+      if (!matched) {
+        $('.quick-range-tag').removeClass('selected');
+      }
+    }
+
+
+
+    // On load: mark the matching tag as selected if inputs equal a preset range; otherwise, mark none selected
+    $(function initActiveQuickFilter() {
+      var curStart = $('#inputStartDateTime').val();
+      var curEnd   = $('#inputEndDateTime').val();
+      var matched  = false;
+
+      $('.quick-range-tag').each(function () {
+        var $tag = $(this);
+        if ($tag.attr('onclick').includes(curStart) && $tag.attr('onclick').includes(curEnd)) {
+          $tag.addClass('selected');
+          matched = true;
+          return false;
+        }
+      });
+
+      if (!matched) {
+        $('.quick-range-tag').removeClass('selected');
+      }
+    });
+  </script>
+<style>
+  .icon{
+    padding-right: 16px;
+  }
+  #iconWhite svg path{
+    fill: #ffffff;
+  }
+
+  #iconWhite svg{
+    width: 15px;
+    height: 15px;
+  }
+
+  #icon svg{
+    width: 15px;
+    height: 15px;
+  }
+  .cket-square-change{
+    min-height: unset;
+    padding-top: 20px;
+    background-color: #ffffff;
+    margin: 0px auto 16px auto;
+  }
+
+  .cket-square-nohover:hover{
+    box-shadow: unset;
+    transform: unset;
+    cursor: unset;
+  }
+
+  .cket-square-no-hover{
+    box-shadow: unset !important;
+    transform: unset !important;
+    cursor: unset;
+  }
+</style>
+<div class="row nopadding cket-square-row">
+
+  
+      <div class="col-12 nopadding ">
+        <a style="cursor: pointer;" class="js-open-item-modal" data-modal-url="https://app.3cket.com/webservices/backoffice/event-manager/analytics/cashless/cashless_modal.php?a=external&eventExternalId=1d6f9f12ca93415983527926dc3accb8&subPage=&start_date=&end_date=&search_product=&search_staff=98b0df709d424bb3bb29714a744fe58e&search_workzone=">
+          <div class="cket-square cket-square-change" style="text-align: center; margin-bottom: 16px; background-color: #452F87">
+            <span class="float-right icon" id="iconWhite"><svg width="15" height="15" viewBox="0 0 218 218" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M128.18 70.7574L164.779 34.1583C168.716 30.2221 167.426 26.9726 161.831 26.9678L128.283 26.9395C110.325 26.9243 110.302 -0.0151613 128.26 6.40251e-06L205.437 0.348041C211.955 0.37743 217.3 5.71279 217.354 12.2648L218 89.7399C218.015 107.698 191.076 107.675 191.061 89.7172L191.034 56.171C191.03 50.5507 187.811 49.2566 183.844 53.223L90.0371 147.03C89.9653 147.102 89.8928 147.173 89.8198 147.243L53.2206 183.842C49.2844 187.778 50.5743 191.027 56.1692 191.032L89.7172 191.061C107.675 191.076 107.698 218.015 89.7399 218L12.5626 217.652C6.04524 217.623 0.70042 212.287 0.645806 205.735L6.40251e-06 128.26C-0.0151613 110.302 26.9243 110.325 26.9395 128.283L26.966 161.829C26.9704 167.449 30.1895 168.743 34.1559 164.777L127.963 70.97C128.035 70.8982 128.107 70.8273 128.18 70.7574Z" fill="#452F87"/>
+</svg>
+</span>
+
+            <div class="cket-square-title" style="color: #ffffff;">
+              <h1 class="value">6 325,40<small>€</small></h1>
+            </div>
+            <div class="cket-square-desc" style="color: #ffffff;">
+              Products
+            </div>
+          </div>
+        </a>
+      </div>
+
+  
+</div>
+
+
+
+<div class="modal cket-panel-right cket-panel-fadeInRight" id="dynamicModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="cket-panel modal-dialog cket-panel-dialog" role="document">
+    <div class="modal-content cket-panel-content">
+    </div>
+  </div>
+</div>
+<script>
+  // Open dynamic right-panel modal and lazy-load its content from data-modal-url
+  jQuery(document).on('click', '.js-open-item-modal', function (e) {
+    e.preventDefault();
+    var url = jQuery(this).data('modal-url');
+    var $modal = jQuery('#dynamicModal');
+    var $content = $modal.find('.modal-content');
+    // Show CSS-only loader
+    $content.html(
+      '<div class="modal-body p-5 text-center">' +
+        '<div class="loader-spinner" aria-hidden="true"></div>' +
+      '</div>'
+    );
+    $modal.modal('show');
+    if (!url) {
+      $content.html('<div class="modal-body p-4 text-danger">URL da modal em falta.</div>');
+      return;
+    }
+    jQuery.get(url)
+      .done(function (html) {
+        try {
+          if (!html || (typeof html === 'string' && html.trim() === '')) {
+            $content.html('<div class="modal-body p-4 text-muted">Sem dados para os filtros selecionados.</div>');
+            return;
+          }
+          var $fragment = jQuery( jQuery.parseHTML(html, document, true) );
+          var $modalContent = $fragment.filter('.modal-content').add($fragment.find('.modal-content'));
+          if ($modalContent.length) {
+            $content.html($modalContent.first().html());
+          } else {
+            $content.html($fragment);
+          }
+          if (jQuery.fn.modal) {
+            $modal.modal('handleUpdate');
+          }
+        } catch (e) {
+          console.error('[total modal] parse error', e);
+          $content.html('<div class="modal-body p-4 text-danger">Ocorreu um erro ao processar a resposta.</div>');
+        }
+      })
+      .fail(function (jqXHR, textStatus) {
+        console.error('[total modal] GET failed', textStatus, jqXHR.status, jqXHR.responseText);
+        $content.html('<div class="modal-body p-4 text-danger">Não foi possível carregar os detalhes. (' + jqXHR.status + ' ' + textStatus + ')</div>');
+      });
+  });
+  // Ensure a CSS-only loader works even without Bootstrap spinners
+  (function ensureLoaderCSS(){
+    if (!document.getElementById('dynamicModalLoaderStyles')) {
+      var style = document.createElement('style');
+      style.id = 'dynamicModalLoaderStyles';
+      style.type = 'text/css';
+      style.textContent =
+        '#dynamicModal .loader-spinner{display:inline-block;width:40px;height:40px;border:4px solid rgba(0,0,0,0.12);border-top-color:rgba(0,0,0,0.6);border-radius:50%;animation:modal-spin 0.9s linear infinite}' +
+        '@keyframes modal-spin{to{transform:rotate(360deg)}}';
+      document.head.appendChild(style);
+    }
+  })();
+</script>
+<script>
+  (function () {
+    // Fallback: if Bootstrap JS is loaded, ensure click opens the modal
+    if (window.jQuery && jQuery.fn && jQuery.fn.modal) {
+      jQuery(document).on('click', '[data-toggle="modal"][data-target="#average"]', function (e) {
+        var $modal = jQuery('#average');
+        // If already shown, ignore
+        if (!$modal.hasClass('show')) {
+          $modal.modal('show');
+        }
+      });
+    } else {
+      // Debug hint if BS not present
+      console && console.warn && console.warn('[average modal] Bootstrap modal plugin not found.');
+    }
+  })();
+</script>
+<script src="https://code.highcharts.com/maps/highmaps.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/no-data-to-display.js"></script>
+
+<div class="row nopadding" style="padding-top: 16px; padding-bottom: 0px;">
+<div class="col-12 nopadding" style="margin-bottom: 8px; border-radius: 5px">
+  <div class="graph" style="width:100%; padding: 32px; background: #FFF; border-radius: 5px;" id="products_overview_by_value"></div>
+</div>
+</div>
+
+<script>
+
+  var graph_title = 'Products value by time';
+  var graph_id = 'products_overview_by_value';
+  var graph_data = 'https://app.3cket.com/webservices/backoffice/event-manager/analytics/cashless/cashless_by_time.php?a=external&eventExternalId=1d6f9f12ca93415983527926dc3accb8&view_mode=total&workzone_id=&start_date=2024-10-17 22:09:16&end_date=2026-03-18 12:31:30&value_display=1&month_display=0&staff=35996&product=';
+  var graph_refresh = 300;
+  var graph_suffix = '€';
+  var graph_type = 'areaspline';
+  var graph_legend = 'Products value by time' === '' ? false : "true";
+  var graph_point_format = '{series.name}: {point.y}';
+  var graph_datalabel = '';
+  var graph_color =  false;
+  var minPointLength = 0;
+  var graph_stacked = '';
+
+// Compute exportingEnabled: use graph_menu if provided; otherwise fallback to previous logic (graph_title !== '')
+var exportingEnabled;
+if ('0' === '1') {
+  var __gm = '';
+  exportingEnabled = (__gm === true || __gm === 'true' || __gm === 1 || __gm === '1');
+} else {
+  exportingEnabled = (graph_title !== '');
+}
+
+
+  Highcharts.chart(graph_id, {
+    chart: {
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      type: graph_type,
+      zoomType: 'x'
+    },
+
+    title: {
+      text: graph_title,
+      style: {
+        fontFamily: "Nunito Sans",
+        fontWeight: "700",
+        fontSize: '20px',
+        color: '#1B1B1B'
+      }
+    },
+    stackLabels: {
+      enabled: true,
+      color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+    },
+    lang: {
+      noData: "No Data Available..."
+    },
+    noData: {
+      style: {
+        fontFamily: "Nunito Sans",
+        fontWeight: "300",
+        fontSize: '15px'
+      }
+    },
+    credits: {
+      enabled: false
+    },
+    exporting: {
+      enabled: exportingEnabled,
+    },
+    legend: {
+      enabled: graph_type === 'pie' ? true : graph_legend,
+      itemStyle: {
+        fontFamily: "Nunito Sans",
+        fontWeight: "300",
+        fontSize: '15px'
+      }
+
+    },
+    data: {
+      csvURL: graph_data,
+      enablePolling: true,
+      dataRefreshRate: graph_refresh
+    },
+    plotOptions: {
+      bar: {
+        borderRadius: 5,
+        pointPadding: 0.02,
+        groupPadding: 0.1,
+        stacking: graph_stacked,
+        colorByPoint: graph_color,
+        dataLabels: {
+          enabled: graph_datalabel,
+        },
+        style: {
+          fontFamily: "Nunito Sans",
+          fontWeight: "300",
+          fontSize: '15px'
+        }
+      },
+      pie: {
+        innerSize: '70%',
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: graph_datalabel,
+        },
+        showInLegend: true
+      },
+      column: {
+        borderRadius: 5,
+        pointPadding: 0.02,
+        groupPadding: 0.1,
+        stacking: graph_stacked,
+        colorByPoint: graph_color,
+        dataLabels: {
+          enabled: graph_datalabel,
+        }
+      },
+      series: {
+        minPointLength: minPointLength,
+        dataLabels: {
+          enabled: graph_datalabel,
+          format: '{point.y:.0f}',
+      style: {
+        color: "contrast",
+        fontFamily: "Nunito Sans",
+        fontSize: "11px",
+        fontWeight: "300",
+        textOutline: "1px 1px contrast"
+  }
+
+  },
+  }
+  },
+  tooltip: {
+    valueDecimals: 2,
+      valueSuffix: graph_suffix,
+      pointFormat: graph_point_format,
+      style: {
+      fontFamily: "Nunito Sans",
+        fontWeight: "300",
+        fontSize: '15px',
+        color: '#303030'
+    }
+  },
+  xAxis: {
+    type: 'category',
+      allowDecimals: false,
+      lineWidth: 0,
+      labels: {
+      style: {
+        fontSize: '10px',
+          fontFamily: "Nunito Sans",
+          fontWeight: "300",
+      }
+    }
+  },
+  yAxis: graph_title === ''
+    ? { visible: false }
+    : {
+        title: false,
+        allowDecimals: false,
+        gridLineWidth: 0,
+        labels: {
+          style: {
+            fontSize: '10px',
+            fontFamily: "Nunito Sans",
+            fontWeight: "300",
+          }
+        }
+      },
+  series: [{
+    marker: {
+      enabled: true
+    }
+  }],
+    colors: graph_type === 'pie'
+      ? [
+        "#2b908f",
+        "#7fd6d6",
+        "#d6bbfb",
+        "#8085e9",
+        "#F44336",
+        "#90ed7d",
+        "#f7a35c",
+        "#f15c80",
+        "#e4d354",
+        "#f45b5b"
+      ]
+      : [
+        "#d6bbfb",
+        "#8085e9",
+        "#F44336",
+        "#90ed7d",
+        "#f7a35c",
+        "#f15c80",
+        "#e4d354",
+        "#f45b5b"
+      ]
+  });
+
+</script>
+<script src="https://code.highcharts.com/maps/highmaps.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/no-data-to-display.js"></script>
+
+<div class="row nopadding" style="padding-top: 16px; padding-bottom: 0px;">
+<div class="col-12 nopadding" style="margin-bottom: 8px; border-radius: 5px">
+  <div class="graph" style="width:100%; padding: 32px; background: #FFF; border-radius: 5px;" id="products_overview"></div>
+</div>
+</div>
+
+<script>
+
+  var graph_title = 'Products quantity by time';
+  var graph_id = 'products_overview';
+  var graph_data = 'https://app.3cket.com/webservices/backoffice/event-manager/analytics/cashless/cashless_by_time.php?a=external&eventExternalId=1d6f9f12ca93415983527926dc3accb8&view_mode=total&workzone_id=&start_date=2024-10-17 22:09:16&end_date=2026-03-18 12:31:30&value_display=0&month_display=0&staff=35996&product=';
+  var graph_refresh = 300;
+  var graph_suffix = '';
+  var graph_type = 'areaspline';
+  var graph_legend = 'Products quantity by time' === '' ? false : "true";
+  var graph_point_format = '{series.name}: {point.y}';
+  var graph_datalabel = '';
+  var graph_color =  false;
+  var minPointLength = 0;
+  var graph_stacked = '';
+
+// Compute exportingEnabled: use graph_menu if provided; otherwise fallback to previous logic (graph_title !== '')
+var exportingEnabled;
+if ('0' === '1') {
+  var __gm = '';
+  exportingEnabled = (__gm === true || __gm === 'true' || __gm === 1 || __gm === '1');
+} else {
+  exportingEnabled = (graph_title !== '');
+}
+
+
+  Highcharts.chart(graph_id, {
+    chart: {
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      type: graph_type,
+      zoomType: 'x'
+    },
+
+    title: {
+      text: graph_title,
+      style: {
+        fontFamily: "Nunito Sans",
+        fontWeight: "700",
+        fontSize: '20px',
+        color: '#1B1B1B'
+      }
+    },
+    stackLabels: {
+      enabled: true,
+      color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+    },
+    lang: {
+      noData: "No Data Available..."
+    },
+    noData: {
+      style: {
+        fontFamily: "Nunito Sans",
+        fontWeight: "300",
+        fontSize: '15px'
+      }
+    },
+    credits: {
+      enabled: false
+    },
+    exporting: {
+      enabled: exportingEnabled,
+    },
+    legend: {
+      enabled: graph_type === 'pie' ? true : graph_legend,
+      itemStyle: {
+        fontFamily: "Nunito Sans",
+        fontWeight: "300",
+        fontSize: '15px'
+      }
+
+    },
+    data: {
+      csvURL: graph_data,
+      enablePolling: true,
+      dataRefreshRate: graph_refresh
+    },
+    plotOptions: {
+      bar: {
+        borderRadius: 5,
+        pointPadding: 0.02,
+        groupPadding: 0.1,
+        stacking: graph_stacked,
+        colorByPoint: graph_color,
+        dataLabels: {
+          enabled: graph_datalabel,
+        },
+        style: {
+          fontFamily: "Nunito Sans",
+          fontWeight: "300",
+          fontSize: '15px'
+        }
+      },
+      pie: {
+        innerSize: '70%',
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: graph_datalabel,
+        },
+        showInLegend: true
+      },
+      column: {
+        borderRadius: 5,
+        pointPadding: 0.02,
+        groupPadding: 0.1,
+        stacking: graph_stacked,
+        colorByPoint: graph_color,
+        dataLabels: {
+          enabled: graph_datalabel,
+        }
+      },
+      series: {
+        minPointLength: minPointLength,
+        dataLabels: {
+          enabled: graph_datalabel,
+          format: '{point.y:.0f}',
+      style: {
+        color: "contrast",
+        fontFamily: "Nunito Sans",
+        fontSize: "11px",
+        fontWeight: "300",
+        textOutline: "1px 1px contrast"
+  }
+
+  },
+  }
+  },
+  tooltip: {
+    valueDecimals: 2,
+      valueSuffix: graph_suffix,
+      pointFormat: graph_point_format,
+      style: {
+      fontFamily: "Nunito Sans",
+        fontWeight: "300",
+        fontSize: '15px',
+        color: '#303030'
+    }
+  },
+  xAxis: {
+    type: 'category',
+      allowDecimals: false,
+      lineWidth: 0,
+      labels: {
+      style: {
+        fontSize: '10px',
+          fontFamily: "Nunito Sans",
+          fontWeight: "300",
+      }
+    }
+  },
+  yAxis: graph_title === ''
+    ? { visible: false }
+    : {
+        title: false,
+        allowDecimals: false,
+        gridLineWidth: 0,
+        labels: {
+          style: {
+            fontSize: '10px',
+            fontFamily: "Nunito Sans",
+            fontWeight: "300",
+          }
+        }
+      },
+  series: [{
+    marker: {
+      enabled: true
+    }
+  }],
+    colors: graph_type === 'pie'
+      ? [
+        "#2b908f",
+        "#7fd6d6",
+        "#d6bbfb",
+        "#8085e9",
+        "#F44336",
+        "#90ed7d",
+        "#f7a35c",
+        "#f15c80",
+        "#e4d354",
+        "#f45b5b"
+      ]
+      : [
+        "#d6bbfb",
+        "#8085e9",
+        "#F44336",
+        "#90ed7d",
+        "#f7a35c",
+        "#f15c80",
+        "#e4d354",
+        "#f45b5b"
+      ]
+  });
+
+</script>

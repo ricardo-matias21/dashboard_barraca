@@ -1,0 +1,15 @@
+Shot Nacional {
+  "class": "row vendor-box js-open-item-modal",
+  "data-modal-url": "https://app.3cket.com/webservices/backoffice/event-manager/analytics/cashless/cashless_modal.php?a=external&eventExternalId=1d6f9f12ca93415983527926dc3accb8&subPage=byProducts&externalId=67a00461dd684601aa20628e72564aa4&start_date=17-10-2024 23:09&end_date=16-03-2026 17:50&search_product=&search_staff=98b0df709d424bb3bb29714a744fe58e&search_workzone=",
+  "style": "cursor: pointer"
+}
+Shot Estrangeiro {
+  "class": "row vendor-box js-open-item-modal",
+  "data-modal-url": "https://app.3cket.com/webservices/backoffice/event-manager/analytics/cashless/cashless_modal.php?a=external&eventExternalId=1d6f9f12ca93415983527926dc3accb8&subPage=byProducts&externalId=8dcf0739791b497ba97c49ac2fd07a95&start_date=17-10-2024 23:09&end_date=16-03-2026 17:50&search_product=&search_staff=98b0df709d424bb3bb29714a744fe58e&search_workzone=",
+  "style": "cursor: pointer"
+}
+Copo Shot {
+  "class": "row vendor-box js-open-item-modal",
+  "data-modal-url": "https://app.3cket.com/webservices/backoffice/event-manager/analytics/cashless/cashless_modal.php?a=external&eventExternalId=1d6f9f12ca93415983527926dc3accb8&subPage=byProducts&externalId=7c38740eef8048e6a25a756d13fd2ea9&start_date=17-10-2024 23:09&end_date=16-03-2026 17:50&search_product=&search_staff=98b0df709d424bb3bb29714a744fe58e&search_workzone=",
+  "style": "cursor: pointer"
+}

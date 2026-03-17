@@ -31,7 +31,11 @@ let metrics = {
     curso: 0,
     shots: 0,
     arraial: 0,
-    sidra: 0
+    sidra: 0,
+    shots_homem: 0,
+    shots_mulher: 0,
+    arraial_homem: 0,
+    arraial_mulher: 0
 };
 
 const targetProducts = ['Fino', 'Bebida de Curso', 'Shot Nacional', 'Shot Estrangeiro', 'FIni Arraial', 'Fino Arraial', 'Sidra'];
@@ -54,6 +58,7 @@ async function scrapeData() {
         
         const $ = cheerio.load(data);
         const tempResults = {};
+        let modalUrls = [];
         
         $('.vendor-box').each((i, el) => {
             const title = $(el).find('.title').text().trim().toLowerCase();
@@ -68,8 +73,51 @@ async function scrapeData() {
                     }
                 });
                 tempResults[matchedProduct] = parseQuantity(qtyStr);
+
+                if (matchedProduct === 'Shot Nacional' || matchedProduct === 'Shot Estrangeiro') {
+                    const mUrl = $(el).attr('data-modal-url');
+                    if (mUrl) modalUrls.push({ type: 'shots', url: mUrl });
+                }
+
+                if (matchedProduct === 'FIni Arraial' || matchedProduct === 'Fino Arraial') {
+                    const mUrl = $(el).attr('data-modal-url');
+                    if (mUrl) modalUrls.push({ type: 'arraial', url: mUrl });
+                }
             }
         });
+
+        // Procurar infos nos modals (género)
+        let totalHomem = 0;
+        let totalMulher = 0;
+        let totalArraialHomem = 0;
+        let totalArraialMulher = 0;
+
+        for (const item of modalUrls) {
+            try {
+                const { data: modalHTML } = await axios.get(item.url, {
+                    headers: {
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+                    }
+                });
+                const m$ = cheerio.load(modalHTML);
+                let qtys = [];
+                m$('[id^=genderCollapse] p').each((idx, pEl) => {
+                    let txt = m$(pEl).text();
+                    if (txt.includes('Quantity:')) {
+                        qtys.push(parseQuantity(txt.replace('Quantity:', '')));
+                    }
+                });
+                
+                if (item.type === 'shots') {
+                    totalHomem += (qtys[0] || 0);
+                    totalMulher += (qtys[1] || 0);
+                } else if (item.type === 'arraial') {
+                    totalArraialHomem += (qtys[0] || 0);
+                    totalArraialMulher += (qtys[1] || 0);
+                }
+            } catch(e) {}
+        }
 
         const sNac = tempResults['Shot Nacional'] || 0;
         const sEst = tempResults['Shot Estrangeiro'] || 0;
@@ -79,12 +127,16 @@ async function scrapeData() {
             curso: tempResults['Bebida de Curso'] || 0,
             shots: sNac + sEst,
             arraial: (tempResults['FIni Arraial'] || 0) + (tempResults['Fino Arraial'] || 0),
-            sidra: tempResults['Sidra'] || 0
+            sidra: tempResults['Sidra'] || 0,
+            shots_homem: totalHomem,
+            shots_mulher: totalMulher,
+            arraial_homem: totalArraialHomem,
+            arraial_mulher: totalArraialMulher
         };
 
         // Enviar os dados atualizados para todas as TVs / Admins ligados
         io.emit('update', { config, metrics });
-        console.log(`[Scrape OK] Fino: ${metrics.fino} | Shots: ${metrics.shots} | Curso: ${metrics.curso} | Arraial: ${metrics.arraial} | Sidra: ${metrics.sidra}`);
+        console.log(`[Scrape OK] Fino: ${metrics.fino} | Shots(H:${totalHomem} F:${totalMulher}) | Arraial(H:${totalArraialHomem} F:${totalArraialMulher}) | Sidra: ${metrics.sidra}`);
     } catch (err) {
         console.error('Erro ao fazer scraping:', err.message);
     }

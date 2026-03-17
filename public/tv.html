@@ -16,11 +16,12 @@
 <body class="text-white h-screen w-screen relative">
     
     <!-- MODO NORMAL -->
-    <div id="normalMode" class="h-full flex flex-col p-8 hidden">
-        <h1 class="text-5xl font-bold text-center mb-8 uppercase tracking-widest text-gray-300">Consumos da Barraca</h1>
-        <div class="flex-1 flex justify-around items-end gap-10 h-full pb-10">
+    <div id="normalMode" class="h-full flex flex-col p-6 hidden relative">
+        <h1 class="text-5xl font-bold text-center mb-6 uppercase tracking-widest text-gray-300">Consumos da Barraca</h1>
+        
+        <div class="flex-1 flex justify-around items-end gap-10 h-full pb-4">
             <!-- Coluna: Fino -->
-            <div class="flex flex-col items-center justify-end h-full w-1/4 relative bg-gray-900 rounded-t-2xl overflow-hidden shadow-[0_0_30px_rgba(255,215,0,0.15)] border-b-8 border-yellow-500">
+            <div id="colFino" class="flex flex-col items-center justify-end h-full w-1/4 relative bg-gray-900 rounded-t-2xl overflow-hidden shadow-[0_0_30px_rgba(255,215,0,0.15)] border-b-8 border-yellow-500 transition-all duration-1000 ease-in-out">
                 <div class="absolute inset-0 flex flex-col items-center justify-between py-12 z-10">
                     <div class="text-[8rem] font-bold text-yellow-400 drop-shadow-2xl leading-none" id="qtyFino">0</div>
                     <div class="text-5xl font-bold tracking-wider text-yellow-500 uppercase drop-shadow-md bg-black/50 px-6 py-2 rounded-xl">Fino</div>
@@ -29,7 +30,7 @@
             </div>
 
             <!-- Coluna: Shots -->
-            <div class="flex flex-col items-center justify-end h-full w-1/4 relative bg-gray-900 rounded-t-2xl overflow-hidden shadow-[0_0_30px_rgba(59,130,246,0.15)] border-b-8 border-blue-500">
+            <div id="colShots" class="flex flex-col items-center justify-end h-full w-1/4 relative bg-gray-900 rounded-t-2xl overflow-hidden shadow-[0_0_30px_rgba(59,130,246,0.15)] border-b-8 border-blue-500 transition-all duration-1000 ease-in-out">
                 <div class="absolute inset-0 flex flex-col items-center justify-between py-12 z-10">
                     <div class="text-[8rem] font-bold text-blue-400 drop-shadow-2xl leading-none" id="qtyShots">0</div>
                     <div class="text-5xl font-bold tracking-wider text-blue-500 uppercase drop-shadow-md bg-black/50 px-6 py-2 rounded-xl">Shots</div>
@@ -38,7 +39,7 @@
             </div>
 
             <!-- Coluna: Curso -->
-            <div class="flex flex-col items-center justify-end h-full w-1/4 relative bg-gray-900 rounded-t-2xl overflow-hidden shadow-[0_0_30px_rgba(244,63,94,0.15)] border-b-8 border-rose-500">
+            <div id="colCurso" class="flex flex-col items-center justify-end h-full w-1/4 relative bg-gray-900 rounded-t-2xl overflow-hidden shadow-[0_0_30px_rgba(244,63,94,0.15)] border-b-8 border-rose-500 transition-all duration-1000 ease-in-out">
                 <div class="absolute inset-0 flex flex-col items-center justify-between py-12 z-10">
                     <div class="text-[8rem] font-bold text-rose-400 drop-shadow-2xl leading-none" id="qtyCurso">0</div>
                     <div class="text-5xl font-bold tracking-wider text-rose-500 uppercase drop-shadow-md bg-black/50 px-6 py-2 rounded-xl">Beb. Curso</div>
@@ -47,12 +48,25 @@
             </div>
 
             <!-- Coluna: Sidra -->
-            <div class="flex flex-col items-center justify-end h-full w-1/4 relative bg-gray-900 rounded-t-2xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.15)] border-b-8 border-emerald-500">
+            <div id="colSidra" class="flex flex-col items-center justify-end h-full w-1/4 relative bg-gray-900 rounded-t-2xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.15)] border-b-8 border-emerald-500 transition-all duration-1000 ease-in-out">
                 <div class="absolute inset-0 flex flex-col items-center justify-between py-12 z-10">
                     <div class="text-[8rem] font-bold text-emerald-400 drop-shadow-2xl leading-none" id="qtySidra">0</div>
                     <div class="text-5xl font-bold tracking-wider text-emerald-500 uppercase drop-shadow-md bg-black/50 px-6 py-2 rounded-xl">Sidra</div>
                 </div>
                 <div id="barSidra" class="bar w-full bg-gradient-to-t from-emerald-800 to-emerald-400 opacity-80" style="height: 0%;"></div>
+            </div>
+        </div>
+
+        <!-- COMPETIÇÃO DE SHOTS HORIZONTAL -->
+        <div class="w-full mt-6 bg-gray-900 rounded-3xl p-5 shadow-[0_0_30px_rgba(0,0,0,0.6)] border-4 border-gray-800 relative z-20">
+            <h3 class="text-center text-gray-400 uppercase tracking-[0.3em] font-black mb-2 text-2xl drop-shadow-md">Batalha de Shots - Elas vs Eles</h3>
+            <div class="flex justify-between w-full text-5xl font-black mb-3 px-6 drop-shadow-xl tracking-wider">
+                <span class="text-cyan-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.4)]">ELES-<span id="qtyShotsHomem">0</span></span>
+                <span class="text-pink-400 drop-shadow-[0_0_10px_rgba(244,114,182,0.4)]">ELAS-<span id="qtyShotsMulher">0</span></span>
+            </div>
+            <div class="w-full h-16 bg-black rounded-full overflow-hidden flex shadow-inner border-2 border-gray-700">
+                <div id="barShotsHomem" class="h-full bg-gradient-to-r from-cyan-900 via-cyan-600 to-cyan-400 transition-all duration-1000 ease-out shadow-[0_0_20px_rgba(34,211,238,0.5)]" style="width: 50%;"></div>
+                <div id="barShotsMulher" class="h-full bg-gradient-to-l from-pink-900 via-pink-600 to-pink-400 transition-all duration-1000 ease-out shadow-[0_0_20px_rgba(244,114,182,0.5)]" style="width: 50%;"></div>
             </div>
         </div>
     </div>
@@ -94,23 +108,37 @@
             Estatísticas do <span class="text-yellow-300">Arraial</span>
         </h1>
         
-        <div class="flex gap-16 w-full justify-center px-10 z-10">
+        <div class="flex gap-8 w-full justify-center px-6 z-10 pt-2">
             <!-- Barris -->
-            <div class="bg-gradient-to-br from-black/60 to-black/90 p-12 rounded-[3rem] border-t-8 border-l-8 border-yellow-400 shadow-[20px_20px_60px_rgba(0,0,0,0.7)] flex flex-col items-center flex-1 max-w-2xl transform transition-transform duration-500 hover:scale-105 backdrop-blur-sm">
-                <div class="text-[9.5rem] mb-6 drop-shadow-lg leading-none transform -rotate-12">🛢️</div>
-                <div class="bg-yellow-500 text-black px-6 py-2 rounded-full font-black text-3xl uppercase tracking-widest mb-6">Totais Abertos</div>
-                <div class="font-bold text-gray-300 text-5xl mb-2">Barris</div>
-                <div class="text-[14rem] font-black text-white drop-shadow-[0_0_40px_rgba(250,204,21,1)] leading-none font-mono" id="qtyBarris">0.0</div>
+            <div class="bg-gradient-to-br from-black/60 to-black/90 p-6 rounded-[2rem] border-t-8 border-l-8 border-yellow-400 shadow-[10px_10px_30px_rgba(0,0,0,0.7)] flex flex-col items-center flex-1 max-w-lg transform transition-transform duration-500 hover:scale-105 backdrop-blur-sm">
+                <div class="text-[5.5rem] mb-3 drop-shadow-lg leading-none transform -rotate-12">🛢️</div>
+                <div class="bg-yellow-500 text-black px-6 py-2 rounded-full font-black text-xl uppercase tracking-widest mb-3">Totais Abertos</div>
+                <div class="font-bold text-gray-300 text-3xl mb-1">Barris</div>
+                <div class="text-[8.5rem] font-black text-white drop-shadow-[0_0_40px_rgba(250,204,21,1)] leading-none font-mono" id="qtyBarris">0.0</div>
             </div>
 
             <!-- Litros -->
-            <div class="bg-gradient-to-br from-black/60 to-black/90 p-12 rounded-[3rem] border-t-8 border-l-8 border-yellow-200 shadow-[20px_20px_60px_rgba(0,0,0,0.7)] flex flex-col items-center flex-1 max-w-2xl transform transition-transform duration-500 hover:scale-105 backdrop-blur-sm">
-                <div class="text-[9.5rem] mb-6 drop-shadow-lg leading-none transform rotate-12">🍺</div>
-                <div class="bg-yellow-300 text-black px-6 py-2 rounded-full font-black text-3xl uppercase tracking-widest mb-6">Cerveja Bebida</div>
-                <div class="font-bold text-gray-300 text-5xl mb-2">Litros</div>
-                <div class="text-[14rem] font-black text-white drop-shadow-[0_0_40px_rgba(253,224,71,1)] leading-none font-mono" id="qtyLitros">0</div>
+            <div class="bg-gradient-to-br from-black/60 to-black/90 p-6 rounded-[2rem] border-t-8 border-l-8 border-yellow-200 shadow-[10px_10px_30px_rgba(0,0,0,0.7)] flex flex-col items-center flex-1 max-w-lg transform transition-transform duration-500 hover:scale-105 backdrop-blur-sm">
+                <div class="text-[5.5rem] mb-3 drop-shadow-lg leading-none transform rotate-12">🍺</div>
+                <div class="bg-yellow-300 text-black px-6 py-2 rounded-full font-black text-xl uppercase tracking-widest mb-3">Cerveja Bebida</div>
+                <div class="font-bold text-gray-300 text-3xl mb-1">Litros</div>
+                <div class="text-[8.5rem] font-black text-white drop-shadow-[0_0_40px_rgba(253,224,71,1)] leading-none font-mono" id="qtyLitros">0</div>
             </div>
         </div>
+
+        <!-- COMPETIÇÃO DE ARRAIAL HORIZONTAL -->
+        <div class="w-full mt-4 bg-black/60 rounded-3xl p-4 shadow-[0_0_30px_rgba(0,0,0,0.6)] border-4 border-yellow-600/50 backdrop-blur-md relative z-20 mx-auto max-w-5xl">
+            <h3 class="text-center text-yellow-500 uppercase tracking-[0.3em] font-black mb-1 text-xl drop-shadow-md">Batalha do Arraial - Elas vs Eles</h3>
+            <div class="flex justify-between w-full text-5xl font-black mb-3 px-6 drop-shadow-xl tracking-wider">
+                <span class="text-cyan-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.4)]">ELES-<span id="qtyArraialHomem">0</span></span>
+                <span class="text-pink-400 drop-shadow-[0_0_10px_rgba(244,114,182,0.4)]">ELAS-<span id="qtyArraialMulher">0</span></span>
+            </div>
+            <div class="w-full h-16 bg-black/80 rounded-full overflow-hidden flex shadow-inner border-2 border-yellow-700">
+                <div id="barArraialHomem" class="h-full bg-gradient-to-r from-cyan-900 via-cyan-600 to-cyan-400 transition-all duration-1000 ease-out shadow-[0_0_20px_rgba(34,211,238,0.5)]" style="width: 50%;"></div>
+                <div id="barArraialMulher" class="h-full bg-gradient-to-l from-pink-900 via-pink-600 to-pink-400 transition-all duration-1000 ease-out shadow-[0_0_20px_rgba(244,114,182,0.5)]" style="width: 50%;"></div>
+            </div>
+        </div>
+
     </div>
 
 
@@ -137,9 +165,24 @@
         const qtySidra = document.getElementById('qtySidra');
         const barSidra = document.getElementById('barSidra');
 
+        const colFino = document.getElementById('colFino');
+        const colShots = document.getElementById('colShots');
+        const colCurso = document.getElementById('colCurso');
+        const colSidra = document.getElementById('colSidra');
+
+        const qtyShotsHomem = document.getElementById('qtyShotsHomem');
+        const qtyShotsMulher = document.getElementById('qtyShotsMulher');
+        const barShotsHomem = document.getElementById('barShotsHomem');
+        const barShotsMulher = document.getElementById('barShotsMulher');
+
         // Elementos Arraial
         const qtyBarris = document.getElementById('qtyBarris');
         const qtyLitros = document.getElementById('qtyLitros');
+        
+        const qtyArraialHomem = document.getElementById('qtyArraialHomem');
+        const qtyArraialMulher = document.getElementById('qtyArraialMulher');
+        const barArraialHomem = document.getElementById('barArraialHomem');
+        const barArraialMulher = document.getElementById('barArraialMulher');
         
         // Elementos Alerta
         const alertOverlay = document.getElementById('alertOverlay');
@@ -148,36 +191,36 @@
         
         let alertTimeout;
 
-        function animateValue(obj, start, end, duration) {
+        function animateValue(obj, start, end, duration, formatDecimal=false) {
             let startTimestamp = null;
             const step = (timestamp) => {
                 if (!startTimestamp) startTimestamp = timestamp;
                 const progress = Math.min((timestamp - startTimestamp) / duration, 1);
                 
                 // Tratar decimais caso seja número float (Barris) vs Inteiros
-                if(Number.isInteger(end)) {
+                if(!formatDecimal) {
                     obj.innerText = Math.floor(progress * (end - start) + start);
                 } else {
-                    obj.innerText = (progress * (end - start) + parseFloat(start)).toFixed(1);
+                    obj.innerText = (progress * (end - start) + parseFloat(start)).toFixed(1).replace('.', ',');
                 }
 
                 if (progress < 1) {
                     window.requestAnimationFrame(step);
                 } else {
-                    obj.innerText = end;
+                    obj.innerText = formatDecimal ? parseFloat(end).toFixed(1).replace('.', ',') : end;
                 }
             };
             window.requestAnimationFrame(step);
         }
 
-        function updateElementWithAnimation(el, newValue) {
-            const currentObjValue = parseFloat(el.innerText) || 0;
+        function updateElementWithAnimation(el, newValue, formatDecimal=false) {
+            const valStr = el.innerText.replace(',', '.');
+            const currentObjValue = parseFloat(valStr) || 0;
             const targetVal = parseFloat(newValue) || 0;
             
             if (currentObjValue !== targetVal) {
-                // Determine if it should be an integer
-                const finalValue = Number.isInteger(Number(newValue)) && !String(newValue).includes('.') ? parseInt(newValue) : parseFloat(newValue);
-                animateValue(el, currentObjValue, finalValue, 1000); // 1s animation
+                const finalValue = formatDecimal ? targetVal : parseInt(newValue);
+                animateValue(el, currentObjValue, finalValue, 1000, formatDecimal); // 1s animation
             }
         }
 
@@ -191,11 +234,31 @@
                     arraialMode.classList.add('fade-in');
                 }
                 
-                const barris = (metrics.arraial / 200).toFixed(1);
-                const litros = Math.floor(metrics.arraial / 5);
+                // Arredonda barril sempre para baixo numa escala 1 casa décimal (ex: 2.9 em vez de 3.0 se <3)
+                const targetBarris = metrics.arraial / 200;
+                const barris = (Math.floor(targetBarris * 10) / 10).toFixed(1);
                 
-                updateElementWithAnimation(qtyBarris, barris);
-                updateElementWithAnimation(qtyLitros, litros);
+                // Litros com 1 casa decimal
+                const litros = (metrics.arraial / 5).toFixed(1);
+                
+                updateElementWithAnimation(qtyBarris, barris, true);
+                updateElementWithAnimation(qtyLitros, litros, true);
+
+                // Batalha Arraial
+                updateElementWithAnimation(qtyArraialHomem, metrics.arraial_homem || 0);
+                updateElementWithAnimation(qtyArraialMulher, metrics.arraial_mulher || 0);
+
+                const totalArraial = (metrics.arraial_homem || 0) + (metrics.arraial_mulher || 0);
+                let percArHomem = 50;
+                let percArMulher = 50;
+                
+                if (totalArraial > 0) {
+                    percArHomem = ((metrics.arraial_homem || 0) / totalArraial) * 100;
+                    percArMulher = ((metrics.arraial_mulher || 0) / totalArraial) * 100;
+                }
+                
+                barArraialHomem.style.width = `${percArHomem}%`;
+                barArraialMulher.style.width = `${percArMulher}%`;
 
             } else {
                 if(normalMode.classList.contains('hidden')) {
@@ -209,8 +272,36 @@
                 updateElementWithAnimation(qtyCurso, metrics.curso);
                 updateElementWithAnimation(qtySidra, metrics.sidra);
 
+                // Update Competição Shots
+                updateElementWithAnimation(qtyShotsHomem, metrics.shots_homem || 0);
+                updateElementWithAnimation(qtyShotsMulher, metrics.shots_mulher || 0);
+
+                const totalGenderShots = (metrics.shots_homem || 0) + (metrics.shots_mulher || 0);
+                let percHomem = 50;
+                let percMulher = 50;
+                
+                if (totalGenderShots > 0) {
+                    percHomem = ((metrics.shots_homem || 0) / totalGenderShots) * 100;
+                    percMulher = ((metrics.shots_mulher || 0) / totalGenderShots) * 100;
+                }
+                
+                barShotsHomem.style.width = `${percHomem}%`;
+                barShotsMulher.style.width = `${percMulher}%`;
+
                 const values = [metrics.fino, metrics.shots, metrics.curso, metrics.sidra];
                 const dynamicMax = Math.max(...values, 1);
+                
+                // Ordenação das colunas (Ranking)
+                const rankPairs = [
+                    { col: colFino, val: metrics.fino },
+                    { col: colShots, val: metrics.shots },
+                    { col: colCurso, val: metrics.curso },
+                    { col: colSidra, val: metrics.sidra }
+                ];
+                rankPairs.sort((a,b) => b.val - a.val); // Descending (more consumed comes first)
+                rankPairs.forEach((item, idx) => {
+                    item.col.style.order = idx + 1;
+                });
                 
                 // Usamos uma escala pela raiz quadrada. 
                 // Isto retira a agressividade da diferença, fazendo um produto com 2000 parecer apenas 
