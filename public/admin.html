@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Barraca Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body class="bg-gray-100 p-8 min-h-screen text-gray-800">
+    <div class="max-w-3xl mx-auto space-y-8">
+        
+        <!-- Header -->
+        <div class="bg-white p-6 rounded-xl shadow border-l-8 border-gray-800">
+            <h1 class="text-3xl font-black mb-2 uppercase tracking-wider">Painel de Controlo</h1>
+            <p class="text-gray-500">Gestão do dashboard da televisão em tempo real.</p>
+        </div>
+
+        <!-- Conf -->
+        <div class="bg-white p-8 rounded-xl shadow">
+            <h2 class="text-2xl font-bold mb-6 border-b pb-4">Configurações Gerais</h2>
+            
+            <div class="mb-6">
+                <label class="block mb-2 font-bold text-gray-700">Link 3cket (Dashboard Cashless):</label>
+                <input type="text" id="urlInput" class="w-full border-2 border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500 transition" placeholder="https://services.3cket.com/...">
+            </div>
+            
+            <div class="mb-8 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <label class="flex items-center space-x-4 cursor-pointer">
+                    <input type="checkbox" id="modoArraialInput" class="form-checkbox h-8 w-8 text-blue-600 transition duration-150 ease-in-out">
+                    <span class="text-xl font-bold text-gray-800 uppercase tracking-wide">🍺 Ativar Modo Arraial (Cerveja Focus)</span>
+                </label>
+            </div>
+
+            <button id="saveConfigBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xl px-6 py-4 rounded-xl shadow-lg transition transform hover:-translate-y-1">Guardar Configurações</button>
+        </div>
+
+        <!-- Alertas -->
+        <div class="bg-white p-8 rounded-xl shadow border-t-8 border-red-500">
+            <h2 class="text-2xl font-bold mb-6 text-red-600 border-b pb-4">Flash Alert (TV Overlay)</h2>
+            <p class="text-gray-600 mb-6">Envia uma mensagem visual que domina a visualização da TV.</p>
+            
+            <div class="mb-5 flex space-x-4">
+                <div class="w-3/4">
+                    <label class="block mb-2 font-bold text-gray-700">Texto:</label>
+                    <textarea id="alertText" rows="3" class="w-full border-2 border-gray-300 p-3 rounded-lg focus:outline-none focus:border-red-500 text-xl font-bold" placeholder="Inserir Texto"></textarea>
+                </div>
+                <div class="w-1/4">
+                    <label class="block mb-2 font-bold text-gray-700">Duração (Segs):</label>
+                    <input type="number" id="alertDuration" class="w-full border-2 border-gray-300 p-3 rounded-lg focus:outline-none focus:border-red-500 text-xl font-bold" min="1" max="120" value="15">
+                </div>
+            </div>
+            
+            <div class="mb-8">
+                <label class="block mb-2 font-bold text-gray-700">Imagem / GIF (Upload Opcional):</label>
+                <input type="file" id="alertImageFile" accept="image/*" class="w-full border-2 border-gray-300 p-3 rounded-lg focus:outline-none focus:border-red-500 bg-white cursor-pointer">
+            </div>
+            
+            <button id="sendAlertBtn" class="w-full bg-red-600 hover:bg-red-700 text-white font-black text-2xl px-6 py-5 rounded-xl shadow-lg transition transform hover:-translate-y-1">🚨 DISPARAR ALERTA NA TV</button>
+        </div>
+        
+    </div>
+
+    <script>
+        const socket = io();
+
+        const urlInput = document.getElementById('urlInput');
+        const modoArraialInput = document.getElementById('modoArraialInput');
+        const saveConfigBtn = document.getElementById('saveConfigBtn');
+        const alertText = document.getElementById('alertText');
+        const alertDuration = document.getElementById('alertDuration');
+        const alertImageFile = document.getElementById('alertImageFile');
+        const sendAlertBtn = document.getElementById('sendAlertBtn');
+
+        socket.on('update', (state) => {
+            // Se o utilizador não está a escrever no input, atualiza-o com o valor atual do server
+            if (document.activeElement !== urlInput) {
+                urlInput.value = state.config.url;
+            }
+            modoArraialInput.checked = state.config.modoArraial;
+        });
+
+        saveConfigBtn.addEventListener('click', () => {
+            socket.emit('update_config', {
+                url: urlInput.value,
+                modoArraial: modoArraialInput.checked
+            });
+            alert('Configurações guardadas e aplicadas à TV!');
+        });
+
+        sendAlertBtn.addEventListener('click', () => {
+            const text = alertText.value.trim();
+            const duration = parseInt(alertDuration.value) || 15;
+            const file = alertImageFile.files[0];
+
+            if(!text && !file) {
+                alert('Preencha o Texto ou faça upload de uma Imagem para o alerta!');
+                return;
+            }
+
+            // Desativa botão para não haver spam
+            sendAlertBtn.disabled = true;
+            sendAlertBtn.innerText = 'A ENVIAR...';
+
+            const payload = { text, duration };
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    payload.image = e.target.result; // data url em base64
+                    socket.emit('trigger_alert', payload);
+                    resetUI();
+                };
+                reader.onerror = () => {
+                    alert('Erro ao ler a imagem. Tente outra!');
+                    resetUI();
+                };
+                reader.readAsDataURL(file); // Lê imagem em binário para o ecrã instantaneo
+            } else {
+                socket.emit('trigger_alert', payload);
+                resetUI();
+            }
+            
+            function resetUI() {
+                // UI feedback
+                const originalText = '🚨 DISPARAR ALERTA NA TV';
+                sendAlertBtn.innerText = '✅ ENVIADO!';
+                sendAlertBtn.classList.replace('bg-red-600', 'bg-green-600');
+                sendAlertBtn.classList.replace('hover:bg-red-700', 'hover:bg-green-700');
+                
+                setTimeout(() => {
+                    sendAlertBtn.disabled = false;
+                    sendAlertBtn.innerText = originalText;
+                    sendAlertBtn.classList.replace('bg-green-600', 'bg-red-600');
+                    sendAlertBtn.classList.replace('hover:bg-green-700', 'hover:bg-red-700');
+                }, 2000);
+
+                alertText.value = '';
+                alertImageFile.value = '';
+            }
+        });
+    </script>
+</body>
+</html>

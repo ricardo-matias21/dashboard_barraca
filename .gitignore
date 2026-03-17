@@ -1,0 +1,7 @@
+node_modules/
+.env
+output.txt
+results_output.txt
+scrape_output.txt
+test.html
+final.txt
