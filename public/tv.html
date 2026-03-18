@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,116 +7,175 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/socket.io/socket.io.js"></script>
     <style>
-        body { font-family: 'Helvetica Neue', Arial, sans-serif; overflow: hidden; background-color: black; margin: 0; padding: 0; }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; overflow: hidden; background-color: black; }
         .bar { transition: height 1.5s cubic-bezier(0.4, 0, 0.2, 1); }
         .fade-in { animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
-        /* Helpers para TV - Escala baseada na altura do ecrã */
-        .text-header { font-size: 4vh; }
-        .text-giant { font-size: 12vh; line-height: 1; }
-        .text-label { font-size: 3.5vh; }
-        .text-battle { font-size: 5vh; }
     </style>
 </head>
 <body class="text-white h-screen w-screen relative">
     
-    <div id="normalMode" class="h-full w-full flex flex-col p-[2vh] hidden relative">
-        <h1 class="h-[8vh] text-header font-bold text-center uppercase tracking-widest text-gray-400 flex items-center justify-center">
-            Consumos da Barraca
-        </h1>
+    <div id="normalMode" class="h-full flex flex-col p-[3vh] hidden relative">
+        <h1 class="text-[5vh] font-bold text-center mb-[3vh] uppercase tracking-widest text-gray-300">Consumos da Barraca</h1>
         
-        <div class="h-[62vh] flex justify-around items-end gap-[2vw] px-[2vw] pb-[2vh]">
-            <div id="colFino" class="flex flex-col items-center justify-end h-full w-1/4 relative bg-gray-900 rounded-t-2xl overflow-hidden shadow-2xl border-b-8 border-yellow-500 transition-all duration-1000">
-                <div class="absolute inset-0 flex flex-col items-center justify-between py-[4vh] z-10">
-                    <div class="text-giant font-black text-yellow-400 drop-shadow-2xl" id="qtyFino">0</div>
-                    <div class="text-label font-bold tracking-wider text-yellow-500 uppercase bg-black/50 px-4 py-1 rounded-xl">Fino</div>
+        <div class="flex-1 flex justify-around items-end gap-[3vw] h-full pb-[2vh]">
+            <div id="colFino" class="flex flex-col items-center justify-end h-full w-1/4 relative bg-gray-900 rounded-t-2xl overflow-hidden shadow-[0_0_30px_rgba(255,215,0,0.15)] border-b-8 border-yellow-500 transition-all duration-1000 ease-in-out">
+                <div class="absolute inset-0 flex flex-col items-center justify-between py-[6vh] z-10">
+                    <div class="text-[14vh] font-bold text-yellow-400 drop-shadow-2xl leading-none" id="qtyFino">0</div>
+                    <div class="text-[4vh] font-bold tracking-wider text-yellow-500 uppercase drop-shadow-md bg-black/50 px-[2vw] py-[1vh] rounded-xl">Fino</div>
                 </div>
                 <div id="barFino" class="bar w-full bg-gradient-to-t from-yellow-800 to-yellow-400 opacity-80" style="height: 0%;"></div>
             </div>
 
-            <div id="colShots" class="flex flex-col items-center justify-end h-full w-1/4 relative bg-gray-900 rounded-t-2xl overflow-hidden shadow-2xl border-b-8 border-blue-500 transition-all duration-1000">
-                <div class="absolute inset-0 flex flex-col items-center justify-between py-[4vh] z-10">
-                    <div class="text-giant font-black text-blue-400 drop-shadow-2xl" id="qtyShots">0</div>
-                    <div class="text-label font-bold tracking-wider text-blue-500 uppercase bg-black/50 px-4 py-1 rounded-xl">Shots</div>
+            <div id="colShots" class="flex flex-col items-center justify-end h-full w-1/4 relative bg-gray-900 rounded-t-2xl overflow-hidden shadow-[0_0_30px_rgba(59,130,246,0.15)] border-b-8 border-blue-500 transition-all duration-1000 ease-in-out">
+                <div class="absolute inset-0 flex flex-col items-center justify-between py-[6vh] z-10">
+                    <div class="text-[14vh] font-bold text-blue-400 drop-shadow-2xl leading-none" id="qtyShots">0</div>
+                    <div class="text-[4vh] font-bold tracking-wider text-blue-500 uppercase drop-shadow-md bg-black/50 px-[2vw] py-[1vh] rounded-xl">Shots</div>
                 </div>
                 <div id="barShots" class="bar w-full bg-gradient-to-t from-blue-800 to-blue-400 opacity-80" style="height: 0%;"></div>
             </div>
 
-            <div id="colCurso" class="flex flex-col items-center justify-end h-full w-1/4 relative bg-gray-900 rounded-t-2xl overflow-hidden shadow-2xl border-b-8 border-rose-500 transition-all duration-1000">
-                <div class="absolute inset-0 flex flex-col items-center justify-between py-[4vh] z-10">
-                    <div class="text-giant font-black text-rose-400 drop-shadow-2xl" id="qtyCurso">0</div>
-                    <div class="text-label font-bold tracking-wider text-rose-500 uppercase bg-black/50 px-4 py-1 rounded-xl">Curso</div>
+            <div id="colCurso" class="flex flex-col items-center justify-end h-full w-1/4 relative bg-gray-900 rounded-t-2xl overflow-hidden shadow-[0_0_30px_rgba(244,63,94,0.15)] border-b-8 border-rose-500 transition-all duration-1000 ease-in-out">
+                <div class="absolute inset-0 flex flex-col items-center justify-between py-[6vh] z-10">
+                    <div class="text-[14vh] font-bold text-rose-400 drop-shadow-2xl leading-none" id="qtyCurso">0</div>
+                    <div class="text-[4vh] font-bold tracking-wider text-rose-500 uppercase drop-shadow-md bg-black/50 px-[2vw] py-[1vh] rounded-xl">Beb. Curso</div>
                 </div>
                 <div id="barCurso" class="bar w-full bg-gradient-to-t from-rose-800 to-rose-400 opacity-80" style="height: 0%;"></div>
             </div>
 
-            <div id="colSidra" class="flex flex-col items-center justify-end h-full w-1/4 relative bg-gray-900 rounded-t-2xl overflow-hidden shadow-2xl border-b-8 border-emerald-500 transition-all duration-1000">
-                <div class="absolute inset-0 flex flex-col items-center justify-between py-[4vh] z-10">
-                    <div class="text-giant font-black text-emerald-400 drop-shadow-2xl" id="qtySidra">0</div>
-                    <div class="text-label font-bold tracking-wider text-emerald-500 uppercase bg-black/50 px-4 py-1 rounded-xl">Sidra</div>
+            <div id="colSidra" class="flex flex-col items-center justify-end h-full w-1/4 relative bg-gray-900 rounded-t-2xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.15)] border-b-8 border-emerald-500 transition-all duration-1000 ease-in-out">
+                <div class="absolute inset-0 flex flex-col items-center justify-between py-[6vh] z-10">
+                    <div class="text-[14vh] font-bold text-emerald-400 drop-shadow-2xl leading-none" id="qtySidra">0</div>
+                    <div class="text-[4vh] font-bold tracking-wider text-emerald-500 uppercase drop-shadow-md bg-black/50 px-[2vw] py-[1vh] rounded-xl">Sidra</div>
                 </div>
                 <div id="barSidra" class="bar w-full bg-gradient-to-t from-emerald-800 to-emerald-400 opacity-80" style="height: 0%;"></div>
             </div>
         </div>
 
-        <div class="h-[25vh] w-full bg-gray-900 rounded-3xl p-[2vh] border-4 border-gray-800 relative z-20 flex flex-col justify-center">
-            <h3 class="text-center text-gray-400 uppercase tracking-widest font-black mb-2 text-[2.5vh]">Batalha de Shots - Eles vs Elas</h3>
-            <div class="flex justify-between w-full text-battle font-black px-8 mb-2">
-                <span class="text-cyan-400">ELES - <span id="qtyShotsHomem">0</span></span>
-                <span class="text-pink-400">ELAS - <span id="qtyShotsMulher">0</span></span>
+        <div class="w-full mt-[3vh] bg-gray-900 rounded-3xl p-[3vh] shadow-[0_0_30px_rgba(0,0,0,0.6)] border-4 border-gray-800 relative z-20">
+            <h3 class="text-center text-gray-400 uppercase tracking-[0.3em] font-black mb-[1vh] text-[3vh] drop-shadow-md">Batalha de Shots - Elas vs Eles</h3>
+            <div class="flex justify-between w-full text-[5vh] font-black mb-[1.5vh] px-[3vw] drop-shadow-xl tracking-wider">
+                <span class="text-cyan-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.4)]">ELES-<span id="qtyShotsHomem">0</span></span>
+                <span class="text-pink-400 drop-shadow-[0_0_10px_rgba(244,114,182,0.4)]">ELAS-<span id="qtyShotsMulher">0</span></span>
             </div>
-            <div class="w-full h-[6vh] bg-black rounded-full overflow-hidden flex border-2 border-gray-700">
-                <div id="barShotsHomem" class="h-full bg-gradient-to-r from-cyan-900 to-cyan-400 transition-all duration-1000" style="width: 50%;"></div>
-                <div id="barShotsMulher" class="h-full bg-gradient-to-l from-pink-900 to-pink-400 transition-all duration-1000" style="width: 50%;"></div>
+            <div class="w-full h-[6vh] bg-black rounded-full overflow-hidden flex shadow-inner border-2 border-gray-700">
+                <div id="barShotsHomem" class="h-full bg-gradient-to-r from-cyan-900 via-cyan-600 to-cyan-400 transition-all duration-1000 ease-out shadow-[0_0_20px_rgba(34,211,238,0.5)]" style="width: 50%;"></div>
+                <div id="barShotsMulher" class="h-full bg-gradient-to-l from-pink-900 via-pink-600 to-pink-400 transition-all duration-1000 ease-out shadow-[0_0_20px_rgba(244,114,182,0.5)]" style="width: 50%;"></div>
             </div>
         </div>
     </div>
 
-    <div id="arraialMode" class="h-full w-full flex flex-col items-center justify-center hidden relative" style="background: radial-gradient(circle at 50% 120%, #f59e0b, #78350f 100%);">
-        <h1 class="text-[7vh] font-black text-white mb-[5vh] z-10 tracking-widest italic drop-shadow-lg text-center">
-            ESTATÍSTICAS DO <span class="text-yellow-300 uppercase">Arraial</span>
+    <style>
+        .beer-bg {
+            background-color: #d97706; /* amber-600 */
+            background-image: radial-gradient(circle at 50% 120%, rgba(253, 224, 71, 0.4), rgba(217, 119, 6, 0.9) 60%, #78350f 100%);
+            overflow: hidden;
+            position: relative;
+        }
+        .bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            bottom: -50px;
+            animation: rise infinite ease-in;
+        }
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
+        }
+    </style>
+
+    <div id="arraialMode" class="h-full flex flex-col items-center justify-center hidden beer-bg">
+        
+        <div class="bubble" style="left: 10%; width: 20px; height: 20px; animation-duration: 4s; animation-delay: 0s;"></div>
+        <div class="bubble" style="left: 25%; width: 35px; height: 35px; animation-duration: 6s; animation-delay: 1s;"></div>
+        <div class="bubble" style="left: 45%; width: 15px; height: 15px; animation-duration: 3s; animation-delay: 2s;"></div>
+        <div class="bubble" style="left: 60%; width: 45px; height: 45px; animation-duration: 7s; animation-delay: 0.5s;"></div>
+        <div class="bubble" style="left: 75%; width: 25px; height: 25px; animation-duration: 5s; animation-delay: 1.5s;"></div>
+        <div class="bubble" style="left: 85%; width: 10px; height: 10px; animation-duration: 3.5s; animation-delay: 0.2s;"></div>
+
+        <h1 class="text-[9vh] font-black text-white mb-[8vh] z-10 tracking-[0.2em] font-serif italic drop-shadow-[0_5px_5px_rgba(0,0,0,0.6)]">
+            Estatísticas do <span class="text-yellow-300">Arraial</span>
         </h1>
         
-        <div class="flex gap-[4vw] w-full justify-center px-[5vw] z-10">
-            <div class="bg-black/70 p-[4vh] rounded-[2rem] border-t-8 border-yellow-400 shadow-2xl flex flex-col items-center flex-1 max-w-[40vw]">
-                <div class="text-[8vh] mb-2">🛢️</div>
-                <div class="text-gray-300 text-[3vh] uppercase font-bold">Barris</div>
-                <div class="text-[14vh] font-black text-white leading-none font-mono" id="qtyBarris">0,0</div>
+        <div class="flex gap-[4vw] w-full justify-center px-[3vw] z-10 pt-[1vh]">
+            <div class="bg-gradient-to-br from-black/60 to-black/90 p-[4vh] rounded-[2rem] border-t-8 border-l-8 border-yellow-400 shadow-[10px_10px_30px_rgba(0,0,0,0.7)] flex flex-col items-center flex-1 max-w-lg transform transition-transform duration-500 hover:scale-105 backdrop-blur-sm">
+                <div class="text-[10vh] mb-[1.5vh] drop-shadow-lg leading-none transform -rotate-12">🛢️</div>
+                <div class="bg-yellow-500 text-black px-[2vw] py-[1vh] rounded-full font-black text-[3vh] uppercase tracking-widest mb-[1.5vh]">Totais Abertos</div>
+                <div class="font-bold text-gray-300 text-[4vh] mb-[1vh]">Barris</div>
+                <div class="text-[16vh] font-black text-white drop-shadow-[0_0_40px_rgba(250,204,21,1)] leading-none font-mono" id="qtyBarris">0.0</div>
             </div>
 
-            <div class="bg-black/70 p-[4vh] rounded-[2rem] border-t-8 border-yellow-200 shadow-2xl flex flex-col items-center flex-1 max-w-[40vw]">
-                <div class="text-[8vh] mb-2">🍺</div>
-                <div class="text-gray-300 text-[3vh] uppercase font-bold">Litros</div>
-                <div class="text-[14vh] font-black text-white leading-none font-mono" id="qtyLitros">0</div>
+            <div class="bg-gradient-to-br from-black/60 to-black/90 p-[4vh] rounded-[2rem] border-t-8 border-l-8 border-yellow-200 shadow-[10px_10px_30px_rgba(0,0,0,0.7)] flex flex-col items-center flex-1 max-w-lg transform transition-transform duration-500 hover:scale-105 backdrop-blur-sm">
+                <div class="text-[10vh] mb-[1.5vh] drop-shadow-lg leading-none transform rotate-12">🍺</div>
+                <div class="bg-yellow-300 text-black px-[2vw] py-[1vh] rounded-full font-black text-[3vh] uppercase tracking-widest mb-[1.5vh]">Cerveja Bebida</div>
+                <div class="font-bold text-gray-300 text-[4vh] mb-[1vh]">Litros</div>
+                <div class="text-[16vh] font-black text-white drop-shadow-[0_0_40px_rgba(253,224,71,1)] leading-none font-mono" id="qtyLitros">0</div>
             </div>
         </div>
 
-        <div class="w-[80vw] mt-[5vh] bg-black/60 rounded-3xl p-[3vh] border-4 border-yellow-600/50 z-10">
-            <div class="flex justify-between w-full text-battle font-black px-6 mb-2">
-                <span class="text-cyan-400">ELES: <span id="qtyArraialHomem">0</span></span>
-                <span class="text-pink-400">ELAS: <span id="qtyArraialMulher">0</span></span>
+        <div class="w-full mt-[4vh] bg-black/60 rounded-3xl p-[3vh] shadow-[0_0_30px_rgba(0,0,0,0.6)] border-4 border-yellow-600/50 backdrop-blur-md relative z-20 mx-auto max-w-5xl">
+            <h3 class="text-center text-yellow-500 uppercase tracking-[0.3em] font-black mb-[1vh] text-[3vh] drop-shadow-md">Batalha do Arraial - Elas vs Eles</h3>
+            <div class="flex justify-between w-full text-[5vh] font-black mb-[1.5vh] px-[3vw] drop-shadow-xl tracking-wider">
+                <span class="text-cyan-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.4)]">ELES-<span id="qtyArraialHomem">0</span></span>
+                <span class="text-pink-400 drop-shadow-[0_0_10px_rgba(244,114,182,0.4)]">ELAS-<span id="qtyArraialMulher">0</span></span>
             </div>
-            <div class="w-full h-[5vh] bg-black rounded-full overflow-hidden flex border-2 border-yellow-700">
-                <div id="barArraialHomem" class="h-full bg-cyan-600 transition-all duration-1000" style="width: 50%;"></div>
-                <div id="barArraialMulher" class="h-full bg-pink-600 transition-all duration-1000" style="width: 50%;"></div>
+            <div class="w-full h-[6vh] bg-black/80 rounded-full overflow-hidden flex shadow-inner border-2 border-yellow-700">
+                <div id="barArraialHomem" class="h-full bg-gradient-to-r from-cyan-900 via-cyan-600 to-cyan-400 transition-all duration-1000 ease-out shadow-[0_0_20px_rgba(34,211,238,0.5)]" style="width: 50%;"></div>
+                <div id="barArraialMulher" class="h-full bg-gradient-to-l from-pink-900 via-pink-600 to-pink-400 transition-all duration-1000 ease-out shadow-[0_0_20px_rgba(244,114,182,0.5)]" style="width: 50%;"></div>
             </div>
         </div>
+
     </div>
 
-    <div id="alertOverlay" class="absolute inset-0 bg-red-600 z-50 flex flex-col items-center justify-center hidden opacity-0 transition-opacity duration-500">
-        <img id="alertImg" src="" class="max-h-[50vh] max-w-[80vw] rounded-3xl shadow-2xl mb-8 border-8 border-white hidden object-cover">
-        <h2 id="alertText" class="text-[10vh] font-black text-white text-center uppercase leading-tight px-10"></h2>
+
+    <div id="alertOverlay" class="absolute inset-0 bg-red-600/95 z-50 flex flex-col items-center justify-center hidden backdrop-blur-md transition-all duration-500 scale-95 opacity-0">
+        <img id="alertImg" src="" alt="Alerta" class="max-h-[50vh] max-w-[80vw] rounded-3xl shadow-2xl mb-[6vh] border-8 border-white hidden object-cover">
+        <h2 id="alertText" class="whitespace-pre-line text-[12vh] font-black text-white text-center drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)] uppercase leading-tight max-w-[90vw]"></h2>
     </div>
 
     <script>
-        // O JAVASCRIPT PERMANECE IGUAL PARA MANTER A TUA LÓGICA
         const socket = io();
+
+        // Containers
         const normalMode = document.getElementById('normalMode');
         const arraialMode = document.getElementById('arraialMode');
+        
+        // Elementos Normal
+        const qtyFino = document.getElementById('qtyFino');
+        const barFino = document.getElementById('barFino');
+        const qtyShots = document.getElementById('qtyShots');
+        const barShots = document.getElementById('barShots');
+        const qtyCurso = document.getElementById('qtyCurso');
+        const barCurso = document.getElementById('barCurso');
+        const qtySidra = document.getElementById('qtySidra');
+        const barSidra = document.getElementById('barSidra');
+
+        const colFino = document.getElementById('colFino');
+        const colShots = document.getElementById('colShots');
+        const colCurso = document.getElementById('colCurso');
+        const colSidra = document.getElementById('colSidra');
+
+        const qtyShotsHomem = document.getElementById('qtyShotsHomem');
+        const qtyShotsMulher = document.getElementById('qtyShotsMulher');
+        const barShotsHomem = document.getElementById('barShotsHomem');
+        const barShotsMulher = document.getElementById('barShotsMulher');
+
+        // Elementos Arraial
+        const qtyBarris = document.getElementById('qtyBarris');
+        const qtyLitros = document.getElementById('qtyLitros');
+        
+        const qtyArraialHomem = document.getElementById('qtyArraialHomem');
+        const qtyArraialMulher = document.getElementById('qtyArraialMulher');
+        const barArraialHomem = document.getElementById('barArraialHomem');
+        const barArraialMulher = document.getElementById('barArraialMulher');
+        
+        // Elementos Alerta
         const alertOverlay = document.getElementById('alertOverlay');
         const alertImg = document.getElementById('alertImg');
         const alertTextEl = document.getElementById('alertText');
+        
         let alertTimeout;
 
         function animateValue(obj, start, end, duration, formatDecimal=false) {
@@ -124,47 +183,167 @@
             const step = (timestamp) => {
                 if (!startTimestamp) startTimestamp = timestamp;
                 const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                
+                // Tratar decimais caso seja número float (Barris) vs Inteiros
                 if(!formatDecimal) {
                     obj.innerText = Math.floor(progress * (end - start) + start);
                 } else {
                     obj.innerText = (progress * (end - start) + parseFloat(start)).toFixed(1).replace('.', ',');
                 }
-                if (progress < 1) window.requestAnimationFrame(step);
+
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    obj.innerText = formatDecimal ? parseFloat(end).toFixed(1).replace('.', ',') : end;
+                }
             };
             window.requestAnimationFrame(step);
         }
 
+        function updateElementWithAnimation(el, newValue, formatDecimal=false) {
+            const valStr = el.innerText.replace(',', '.');
+            const currentObjValue = parseFloat(valStr) || 0;
+            const targetVal = parseFloat(newValue) || 0;
+            
+            if (currentObjValue !== targetVal) {
+                const finalValue = formatDecimal ? targetVal : parseInt(newValue);
+                animateValue(el, currentObjValue, finalValue, 1000, formatDecimal); // 1s animation
+            }
+        }
+
         socket.on('update', (state) => {
             const { config, metrics } = state;
+            
             if (config.modoArraial) {
-                normalMode.classList.add('hidden');
-                arraialMode.classList.remove('hidden');
-                const barris = (metrics.arraial / 200).toFixed(1);
-                const litros = Math.floor(metrics.arraial / 5);
-                animateValue(document.getElementById('qtyBarris'), parseFloat(document.getElementById('qtyBarris').innerText.replace(',','.')), barris, 1000, true);
-                animateValue(document.getElementById('qtyLitros'), parseInt(document.getElementById('qtyLitros').innerText), litros, 1000, false);
+                if(arraialMode.classList.contains('hidden')) {
+                    normalMode.classList.add('hidden');
+                    arraialMode.classList.remove('hidden');
+                    arraialMode.classList.add('fade-in');
+                }
+                
+                // Arredonda barril sempre para baixo numa escala 1 casa décimal (ex: 2.9 em vez de 3.0 se <3)
+                const targetBarris = metrics.arraial / 200;
+                const barris = (Math.floor(targetBarris * 10) / 10).toFixed(1);
+                
+                // Litros com 1 casa decimal
+                const litros = (metrics.arraial / 5).toFixed(1);
+                
+                updateElementWithAnimation(qtyBarris, barris, true);
+                updateElementWithAnimation(qtyLitros, litros, true);
+
+                // Batalha Arraial
+                updateElementWithAnimation(qtyArraialHomem, metrics.arraial_homem || 0);
+                updateElementWithAnimation(qtyArraialMulher, metrics.arraial_mulher || 0);
+
+                const totalArraial = (metrics.arraial_homem || 0) + (metrics.arraial_mulher || 0);
+                let percArHomem = 50;
+                let percArMulher = 50;
+                
+                if (totalArraial > 0) {
+                    percArHomem = ((metrics.arraial_homem || 0) / totalArraial) * 100;
+                    percArMulher = ((metrics.arraial_mulher || 0) / totalArraial) * 100;
+                }
+                
+                barArraialHomem.style.width = `${percArHomem}%`;
+                barArraialMulher.style.width = `${percArMulher}%`;
+
             } else {
-                normalMode.classList.remove('hidden');
-                arraialMode.classList.add('hidden');
-                ['Fino', 'Shots', 'Curso', 'Sidra'].forEach(m => {
-                    const el = document.getElementById('qty' + m);
-                    const val = metrics[m.toLowerCase()];
-                    if(parseInt(el.innerText) !== val) animateValue(el, parseInt(el.innerText), val, 1000);
-                    const max = Math.max(metrics.fino, metrics.shots, metrics.curso, metrics.sidra, 1);
-                    document.getElementById('bar' + m).style.height = (Math.sqrt(val) / Math.sqrt(max) * 90) + '%';
+                if(normalMode.classList.contains('hidden')) {
+                    arraialMode.classList.add('hidden');
+                    normalMode.classList.remove('hidden');
+                    normalMode.classList.add('fade-in');
+                }
+
+                updateElementWithAnimation(qtyFino, metrics.fino);
+                updateElementWithAnimation(qtyShots, metrics.shots);
+                updateElementWithAnimation(qtyCurso, metrics.curso);
+                updateElementWithAnimation(qtySidra, metrics.sidra);
+
+                // Update Competição Shots
+                updateElementWithAnimation(qtyShotsHomem, metrics.shots_homem || 0);
+                updateElementWithAnimation(qtyShotsMulher, metrics.shots_mulher || 0);
+
+                const totalGenderShots = (metrics.shots_homem || 0) + (metrics.shots_mulher || 0);
+                let percHomem = 50;
+                let percMulher = 50;
+                
+                if (totalGenderShots > 0) {
+                    percHomem = ((metrics.shots_homem || 0) / totalGenderShots) * 100;
+                    percMulher = ((metrics.shots_mulher || 0) / totalGenderShots) * 100;
+                }
+                
+                barShotsHomem.style.width = `${percHomem}%`;
+                barShotsMulher.style.width = `${percMulher}%`;
+
+                const values = [metrics.fino, metrics.shots, metrics.curso, metrics.sidra];
+                const dynamicMax = Math.max(...values, 1);
+                
+                // Ordenação das colunas (Ranking)
+                const rankPairs = [
+                    { col: colFino, val: metrics.fino },
+                    { col: colShots, val: metrics.shots },
+                    { col: colCurso, val: metrics.curso },
+                    { col: colSidra, val: metrics.sidra }
+                ];
+                rankPairs.sort((a,b) => b.val - a.val); // Descending (more consumed comes first)
+                rankPairs.forEach((item, idx) => {
+                    item.col.style.order = idx + 1;
                 });
+                
+                // Usamos uma escala pela raiz quadrada. 
+                // Isto retira a agressividade da diferença, fazendo um produto com 2000 parecer apenas 
+                // sensivelmente o dobro de um de 500 na barra (e não 4x mais), equilibrando brutalmente o ecrã.
+                const rootMax = Math.sqrt(dynamicMax);
+
+                const calcHeight = (val) => {
+                    if (val === 0) return 5;
+                    const smoothedPercentage = (Math.sqrt(val) / rootMax) * 100;
+                    // 15% minimo base (para que nunca fique num buraco) até 90% no grande vencedor
+                    return 15 + (smoothedPercentage * 0.75);
+                };
+
+                barFino.style.height = `${calcHeight(metrics.fino)}%`;
+                barShots.style.height = `${calcHeight(metrics.shots)}%`;
+                barCurso.style.height = `${calcHeight(metrics.curso)}%`;
+                barSidra.style.height = `${calcHeight(metrics.sidra)}%`;
             }
         });
 
         socket.on('alert', (data) => {
+            clearTimeout(alertTimeout);
+            
             alertOverlay.classList.remove('hidden');
-            setTimeout(() => alertOverlay.style.opacity = "1", 50);
-            if(data.image) { alertImg.src = data.image; alertImg.classList.remove('hidden'); }
-            alertTextEl.innerText = data.text || '';
+            // Timeout para dar trigger na transition do tailwind
             setTimeout(() => {
-                alertOverlay.style.opacity = "0";
-                setTimeout(() => alertOverlay.classList.add('hidden'), 500);
-            }, (data.duration || 15) * 1000);
+                alertOverlay.classList.remove('scale-95', 'opacity-0');
+                alertOverlay.classList.add('scale-100', 'opacity-100');
+            }, 50);
+
+            if(data.image) {
+                alertImg.src = data.image;
+                alertImg.classList.remove('hidden');
+            } else {
+                alertImg.classList.add('hidden');
+                alertImg.src = '';
+            }
+
+            if(data.text) {
+                alertTextEl.innerText = data.text;
+                alertTextEl.classList.remove('hidden');
+            } else {
+                alertTextEl.classList.add('hidden');
+                alertTextEl.innerText = '';
+            }
+
+            const durationMs = (data.duration || 15) * 1000;
+
+            alertTimeout = setTimeout(() => {
+                alertOverlay.classList.remove('scale-100', 'opacity-100');
+                alertOverlay.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    alertOverlay.classList.add('hidden');
+                }, 500); // Wait for fade out to hide
+            }, durationMs);
         });
     </script>
 </body>
