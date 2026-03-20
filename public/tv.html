@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -130,9 +130,9 @@
     </div>
 
 
-    <div id="alertOverlay" class="absolute inset-0 bg-red-600/95 z-50 flex flex-col items-center justify-center hidden backdrop-blur-md transition-all duration-500 scale-95 opacity-0">
-        <img id="alertImg" src="" alt="Alerta" class="max-h-[50vh] max-w-[80vw] rounded-3xl shadow-2xl mb-[6vh] border-8 border-white hidden object-cover">
-        <h2 id="alertText" class="whitespace-pre-line text-[12vh] font-black text-white text-center drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)] uppercase leading-tight max-w-[90vw]"></h2>
+    <div id="alertOverlay" class="absolute inset-0 bg-red-600/95 z-50 flex flex-col items-center justify-center hidden backdrop-blur-md transition-all duration-500 scale-95 opacity-0 overflow-hidden">
+        <img id="alertImg" src="" alt="Alerta" class="hidden">
+        <h2 id="alertText" class="whitespace-pre-line text-[12vh] font-black text-white text-center drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)] uppercase leading-tight max-w-[90vw] relative z-10 hidden"></h2>
     </div>
 
     <script>
@@ -319,15 +319,26 @@
                 alertOverlay.classList.add('scale-100', 'opacity-100');
             }, 50);
 
-            if(data.image) {
+            // Verificação: O alerta tem imagem e tem texto?
+            const hasImage = !!data.image;
+            const hasText = data.text && data.text.trim() !== '';
+
+            if(hasImage) {
                 alertImg.src = data.image;
-                alertImg.classList.remove('hidden');
+                
+                if(!hasText) {
+                    // SE FOR APENAS IMAGEM: Ocupa o ecrã inteiro sem bordas
+                    alertImg.className = "absolute inset-0 w-full h-full object-cover z-0";
+                } else {
+                    // SE TIVER TEXTO: Fica mais pequena com borda para caber o texto por baixo
+                    alertImg.className = "max-h-[50vh] max-w-[80vw] rounded-3xl shadow-2xl mb-[6vh] border-8 border-white relative z-10 object-cover";
+                }
             } else {
-                alertImg.classList.add('hidden');
+                alertImg.className = "hidden";
                 alertImg.src = '';
             }
 
-            if(data.text) {
+            if(hasText) {
                 alertTextEl.innerText = data.text;
                 alertTextEl.classList.remove('hidden');
             } else {
