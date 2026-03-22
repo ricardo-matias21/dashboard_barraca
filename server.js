@@ -23,7 +23,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Estado Global
 let config = {
     url: 'https://services.3cket.com/staff/cashless.php?search_workzone=&search_staff=98b0df709d424bb3bb29714a744fe58e&subPage=byProducts&start_date=17-10-2024%2023:09&end_date=16-03-2026%2017:50&search_product=&month_view=0&view_mode=total',
-    modoArraial: false
+    modoArraial: false,
+    frankFileGoals: [] // { id, target, image, triggered }
 };
 
 let metrics = {
@@ -136,6 +137,31 @@ async function scrapeData() {
 
         // Enviar os dados atualizados para todas as TVs / Admins ligados
         io.emit('update', { config, metrics });
+
+        // Verificação da Meta Frank File Multi-Goal
+        const goalValue = config.modoArraial ? metrics.arraial : metrics.fino;
+        let triggeredAny = false;
+        
+        for (let i = 0; i < config.frankFileGoals.length; i++) {
+            const goal = config.frankFileGoals[i];
+            if (!goal.triggered && goalValue >= goal.target) {
+                goal.triggered = true;
+                triggeredAny = true;
+                
+                io.emit('alert', {
+                    image: goal.image,
+                    text: '',
+                    duration: 30
+                });
+                console.log(`[FRANK FILE] Meta Atingida! (${goalValue} >= ${goal.target})`);
+                break; // Trigger one per scrape loop max to avoid overlapping overlaps
+            }
+        }
+        
+        if(triggeredAny) {
+            // Atualizar as novas propriedades triggered na lista para a TV
+            io.emit('update', { config, metrics });
+        }
         console.log(`[Scrape OK] Fino: ${metrics.fino} | Shots(H:${totalHomem} F:${totalMulher}) | Arraial(H:${totalArraialHomem} F:${totalArraialMulher}) | Sidra: ${metrics.sidra}`);
     } catch (err) {
         console.error('Erro ao fazer scraping:', err.message);
@@ -161,6 +187,28 @@ io.on('connection', (socket) => {
     // Alerta Flash do admin
     socket.on('trigger_alert', (alertData) => {
         io.emit('alert', alertData);
+    });
+
+    // Frank File Adicionar Meta
+    socket.on('add_frank_file_goal', (data) => {
+        const newGoal = {
+            id: Date.now().toString(),
+            target: parseInt(data.goal, 10) || 0,
+            image: data.image || null,
+            triggered: false
+        };
+        config.frankFileGoals.push(newGoal);
+        // Ordenar as metas por alvo ascendente
+        config.frankFileGoals.sort((a, b) => a.target - b.target);
+        
+        io.emit('update', { config, metrics });
+        scrapeData(); // verificação imediata
+    });
+
+    // Frank File Remover Meta
+    socket.on('delete_frank_file_goal', (id) => {
+        config.frankFileGoals = config.frankFileGoals.filter(g => g.id !== id);
+        io.emit('update', { config, metrics });
     });
 });
 
