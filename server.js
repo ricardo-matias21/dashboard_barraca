@@ -4,6 +4,8 @@ const { Server } = require('socket.io');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const path = require('path');
+const fs = require('fs');
+const multer = require('multer');
 
 const app = express();
 const server = http.createServer(app);
@@ -18,7 +20,62 @@ app.get('/admin', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
+
+
 app.use(express.static(path.join(__dirname, 'public')));
+
+// 1. Criação Dinâmica da Diretoria de Uploads (Garantia de Existência)
+const uploadDir = path.join(__dirname, 'public', 'uploads');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+// Configuração do multer para upload de imagens
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => cb(null, uploadDir),
+    filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        const ext = path.extname(file.originalname);
+        cb(null, file.fieldname + '-' + uniqueSuffix + ext);
+    }
+});
+const upload = multer({ storage: storage });
+
+// 3. Tratamento de Erros e Logs Visíveis nas Rotas API
+app.post('/api/goals', upload.single('image'), (req, res) => {
+    try {
+        const targetNumber = parseInt(req.body.goal, 10);
+        if (isNaN(targetNumber) || targetNumber <= 0) {
+            return res.status(400).json({ error: "Alvo inválido. Deve ser maior que 0." });
+        }
+
+        let imageUrl = null;
+        if (req.file) {
+            // 4. Configuração do Caminho Estático (Express)
+            // A diretoria 'public' já está exposta ao express, pela qual a firewall abre a porta 'public/uploads' -> '/uploads/...'
+            imageUrl = `/uploads/${req.file.filename}`;
+        }
+
+        // 2. Armazenamento em Memória (RAM) em vez de Ficheiro Local
+        const newGoal = {
+            id: Date.now().toString(),
+            target: targetNumber,
+            image: imageUrl,
+            triggered: false
+        };
+
+        config.frankFileGoals.push(newGoal);
+        config.frankFileGoals.sort((a, b) => a.target - b.target);
+        
+        io.emit('update', { config, metrics });
+        scrapeData(); // verificação imediata
+
+        res.status(200).json({ message: 'Meta adicionada com sucesso!', goal: newGoal });
+    } catch (error) {
+        console.error("Erro interno no processamento da meta e guardar imagem:", error);
+        res.status(500).json({ error: "Erro interno no servidor a processar a meta/imagem." });
+    }
+});
 
 // Estado Global
 let config = {
@@ -187,22 +244,6 @@ io.on('connection', (socket) => {
     // Alerta Flash do admin
     socket.on('trigger_alert', (alertData) => {
         io.emit('alert', alertData);
-    });
-
-    // Frank File Adicionar Meta
-    socket.on('add_frank_file_goal', (data) => {
-        const newGoal = {
-            id: Date.now().toString(),
-            target: parseInt(data.goal, 10) || 0,
-            image: data.image || null,
-            triggered: false
-        };
-        config.frankFileGoals.push(newGoal);
-        // Ordenar as metas por alvo ascendente
-        config.frankFileGoals.sort((a, b) => a.target - b.target);
-        
-        io.emit('update', { config, metrics });
-        scrapeData(); // verificação imediata
     });
 
     // Frank File Remover Meta
