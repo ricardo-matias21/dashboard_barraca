@@ -77,6 +77,41 @@ app.post('/api/goals', upload.single('image'), (req, res) => {
     }
 });
 
+// Editar Meta
+app.put('/api/goals/:id', upload.single('image'), (req, res) => {
+    try {
+        const goalId = req.params.id;
+        const targetNumber = parseInt(req.body.goal, 10);
+        if (isNaN(targetNumber) || targetNumber <= 0) {
+            return res.status(400).json({ error: "Alvo inválido. Deve ser maior que 0." });
+        }
+
+        const goalIndex = config.frankFileGoals.findIndex(g => g.id === goalId);
+        if (goalIndex === -1) {
+            return res.status(404).json({ error: "Meta não encontrada." });
+        }
+
+        let imageUrl = config.frankFileGoals[goalIndex].image; // Keep old image by default
+        if (req.file) {
+            imageUrl = `/uploads/${req.file.filename}`;
+        }
+
+        config.frankFileGoals[goalIndex].target = targetNumber;
+        config.frankFileGoals[goalIndex].image = imageUrl;
+        config.frankFileGoals[goalIndex].triggered = false; // Reset the trigger
+
+        config.frankFileGoals.sort((a, b) => a.target - b.target);
+        
+        io.emit('update', { config, metrics });
+        scrapeData(); // immediate check
+
+        res.status(200).json({ message: 'Meta atualizada com sucesso!', goal: config.frankFileGoals[goalIndex] });
+    } catch (error) {
+        console.error("Erro interno ao atualizar meta e imagem:", error);
+        res.status(500).json({ error: "Erro interno no servidor a atualizar a meta/imagem." });
+    }
+});
+
 // Estado Global
 let config = {
     url: 'https://services.3cket.com/staff/cashless.php?search_workzone=&search_staff=98b0df709d424bb3bb29714a744fe58e&subPage=byProducts&start_date=17-10-2024%2023:09&end_date=16-03-2026%2017:50&search_product=&month_view=0&view_mode=total',

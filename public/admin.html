@@ -101,6 +101,9 @@
         const frankFileImageInput = document.getElementById('frankFileImageInput');
         const setFrankFileBtn = document.getElementById('setFrankFileBtn');
 
+        let currentGoals = [];
+        let editingGoalId = null;
+
         socket.on('update', (state) => {
             // Se o utilizador não está a escrever no input, atualiza-o com o valor atual do server
             if (document.activeElement !== urlInput) {
@@ -113,6 +116,7 @@
         });
 
         function renderFrankFileList(goals) {
+            currentGoals = goals;
             const listEl = document.getElementById('frankFileList');
             if(!goals || goals.length === 0) {
                 listEl.innerHTML = '<p class="text-gray-500 italic">Nenhuma meta configurada.</p>';
@@ -133,9 +137,14 @@
                                 <div class="text-xs font-bold uppercase tracking-wider">${statusStr}</div>
                             </div>
                         </div>
-                        <button onclick="window.deleteFrankFileGoal('${g.id}')" class="bg-red-500 hover:bg-red-600 text-white text-xl p-4 rounded-xl shadow transition transform hover:scale-110">
-                            🗑️
-                        </button>
+                        <div class="flex flex-col gap-2">
+                            <button onclick="window.editFrankFileGoal('${g.id}')" class="bg-blue-500 hover:bg-blue-600 text-white text-xl px-4 py-2 flex items-center justify-center rounded-xl shadow transition transform hover:scale-105" title="Editar Meta">
+                                ✏️
+                            </button>
+                            <button onclick="window.deleteFrankFileGoal('${g.id}')" class="bg-red-500 hover:bg-red-600 text-white text-xl px-4 py-2 flex items-center justify-center rounded-xl shadow transition transform hover:scale-105" title="Eliminar Meta">
+                                🗑️
+                            </button>
+                        </div>
                     </div>
                 `;
             });
@@ -145,6 +154,21 @@
         window.deleteFrankFileGoal = function(id) {
             if(confirm('Tem a certeza que deseja eliminar esta meta?')) {
                 socket.emit('delete_frank_file_goal', id);
+            }
+        };
+
+        window.editFrankFileGoal = function(id) {
+            const goal = currentGoals.find(g => g.id === id);
+            if (goal) {
+                editingGoalId = id;
+                frankFileGoalInput.value = goal.target;
+                frankFileImageInput.value = ''; // Segurança HTML5 impede value do ficheiro
+                
+                setFrankFileBtn.innerText = '💾 ATUALIZAR META ' + goal.target;
+                setFrankFileBtn.classList.remove('bg-purple-600', 'hover:bg-purple-700');
+                setFrankFileBtn.classList.add('bg-blue-600', 'hover:bg-blue-700');
+                
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         };
 
@@ -226,8 +250,11 @@
                 formData.append('image', file);
             }
 
-            fetch('/api/goals', {
-                method: 'POST',
+            const url = editingGoalId ? '/api/goals/' + editingGoalId : '/api/goals';
+            const method = editingGoalId ? 'PUT' : 'POST';
+
+            fetch(url, {
+                method: method,
                 body: formData
             })
             .then(res => {
@@ -244,22 +271,25 @@
                 alert('Falha ao adicionar meta: ' + error.message);
                 
                 setFrankFileBtn.disabled = false;
-                setFrankFileBtn.innerText = '🎯 ADICIONAR META FRANK FILE';
-                setFrankFileBtn.classList.replace('bg-green-600', 'bg-purple-600');
-                setFrankFileBtn.classList.replace('hover:bg-green-700', 'hover:bg-purple-700');
+                setFrankFileBtn.innerText = editingGoalId ? '💾 ATUALIZAR META' : '🎯 ADICIONAR META FRANK FILE';
+                if (!editingGoalId) {
+                    setFrankFileBtn.classList.replace('bg-green-600', 'bg-purple-600');
+                    setFrankFileBtn.classList.replace('hover:bg-green-700', 'hover:bg-purple-700');
+                }
             });
 
             function resetFrankFileUI() {
+                editingGoalId = null;
                 const originalText = '🎯 ADICIONAR META FRANK FILE';
-                setFrankFileBtn.innerText = '✅ ADICIONADA!';
-                setFrankFileBtn.classList.replace('bg-purple-600', 'bg-green-600');
-                setFrankFileBtn.classList.replace('hover:bg-purple-700', 'hover:bg-green-700');
+                setFrankFileBtn.innerText = '✅ GRAVADO!';
+                setFrankFileBtn.classList.remove('bg-purple-600', 'bg-blue-600', 'hover:bg-purple-700', 'hover:bg-blue-700');
+                setFrankFileBtn.classList.add('bg-green-600', 'hover:bg-green-700');
                 
                 setTimeout(() => {
                     setFrankFileBtn.disabled = false;
                     setFrankFileBtn.innerText = originalText;
-                    setFrankFileBtn.classList.replace('bg-green-600', 'bg-purple-600');
-                    setFrankFileBtn.classList.replace('hover:bg-green-700', 'hover:bg-purple-700');
+                    setFrankFileBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                    setFrankFileBtn.classList.add('bg-purple-600', 'hover:bg-purple-700');
                 }, 2000);
                 frankFileGoalInput.value = '';
                 frankFileImageInput.value = '';
