@@ -45,6 +45,17 @@
                 <input type="number" id="frankFileGoalInput" class="w-full border-2 border-gray-300 p-3 rounded-lg focus:outline-none focus:border-purple-500 text-xl font-bold" min="0" placeholder="Ex: 500">
             </div>
             
+            <div class="mb-5">
+                <label class="block mb-2 font-bold text-gray-700">Tipo de Bebida para a Meta:</label>
+                <select id="frankFileDrinkInput" class="w-full border-2 border-gray-300 p-3 rounded-lg focus:outline-none focus:border-purple-500 text-xl font-bold bg-white">
+                    <option value="fino">Finos (Bar Normal)</option>
+                    <option value="arraial">Finos (Bar Arraial)</option>
+                    <option value="curso">Bebidas de Curso</option>
+                    <option value="shots">Shots</option>
+                    <option value="sidra">Sidras</option>
+                </select>
+            </div>
+            
             <div class="mb-8">
                 <label class="block mb-2 font-bold text-gray-700">Nova Imagem Opcional (Frank File):</label>
                 <input type="file" id="frankFileImageInput" accept="image/*" class="w-full border-2 border-gray-300 p-3 rounded-lg focus:outline-none focus:border-purple-500 bg-white cursor-pointer">
@@ -98,6 +109,7 @@
         const sendAlertBtn = document.getElementById('sendAlertBtn');
 
         const frankFileGoalInput = document.getElementById('frankFileGoalInput');
+        const frankFileDrinkInput = document.getElementById('frankFileDrinkInput');
         const frankFileImageInput = document.getElementById('frankFileImageInput');
         const setFrankFileBtn = document.getElementById('setFrankFileBtn');
 
@@ -126,6 +138,16 @@
             let html = '';
             goals.forEach(g => {
                 const statusStr = g.triggered ? '<span class="text-green-600 bg-green-100 px-2 py-1 rounded">✅ Atingido</span>' : '<span class="text-orange-600 bg-orange-100 px-2 py-1 rounded">⏳ Pendente</span>';
+                
+                const drinkLabels = {
+                    'fino': '🍺 Fino',
+                    'arraial': '🍻 Fino Arr.',
+                    'curso': '🎓 Curso',
+                    'shots': '🥃 Shots',
+                    'sidra': '🍎 Sidra'
+                };
+                const mappedDrink = drinkLabels[g.drink] || '🍺 Fino';
+
                 html += `
                     <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200 shadow-sm">
                         <div class="flex items-center gap-4">
@@ -133,6 +155,7 @@
                                 ${g.image ? '<img src="' + g.image + '" class="w-full h-full object-cover">' : '<div class="w-full h-full flex items-center justify-center text-xs text-center text-gray-500 font-bold">Sem Foto</div>'}
                             </div>
                             <div>
+                                <div class="text-sm font-bold text-gray-500 mb-1 tracking-wider uppercase">${mappedDrink}</div>
                                 <div class="text-3xl font-black text-purple-900 border-b-2 border-purple-200 inline-block mb-2">${g.target}</div>
                                 <div class="text-xs font-bold uppercase tracking-wider">${statusStr}</div>
                             </div>
@@ -162,6 +185,7 @@
             if (goal) {
                 editingGoalId = id;
                 frankFileGoalInput.value = goal.target;
+                frankFileDrinkInput.value = goal.drink || 'fino';
                 frankFileImageInput.value = ''; // Segurança HTML5 impede value do ficheiro
                 
                 setFrankFileBtn.innerText = '💾 ATUALIZAR META ' + goal.target;
@@ -234,6 +258,7 @@
 
         setFrankFileBtn.addEventListener('click', () => {
             const goal = parseInt(frankFileGoalInput.value, 10) || 0;
+            const drink = frankFileDrinkInput.value;
             const file = frankFileImageInput.files[0];
 
             if (goal <= 0) {
@@ -246,6 +271,7 @@
 
             const formData = new FormData();
             formData.append('goal', goal);
+            formData.append('drink', drink);
             if (file) {
                 formData.append('image', file);
             }
@@ -292,6 +318,7 @@
                     setFrankFileBtn.classList.add('bg-purple-600', 'hover:bg-purple-700');
                 }, 2000);
                 frankFileGoalInput.value = '';
+                frankFileDrinkInput.value = 'fino';
                 frankFileImageInput.value = '';
             }
         });

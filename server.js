@@ -42,6 +42,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // 3. Tratamento de Erros e Logs Visíveis nas Rotas API
+app.get('/api/debug', (req, res) => res.json(config));
 app.post('/api/goals', upload.single('image'), (req, res) => {
     try {
         const targetNumber = parseInt(req.body.goal, 10);
@@ -51,15 +52,17 @@ app.post('/api/goals', upload.single('image'), (req, res) => {
 
         let imageUrl = null;
         if (req.file) {
-            // 4. Configuração do Caminho Estático (Express)
-            // A diretoria 'public' já está exposta ao express, pela qual a firewall abre a porta 'public/uploads' -> '/uploads/...'
             imageUrl = `/uploads/${req.file.filename}`;
         }
+        
+        let defaultDrink = config.modoArraial ? 'arraial' : 'fino';
+        const drinkType = req.body.drink || defaultDrink;
 
         // 2. Armazenamento em Memória (RAM) em vez de Ficheiro Local
         const newGoal = {
             id: Date.now().toString(),
             target: targetNumber,
+            drink: drinkType,
             image: imageUrl,
             triggered: false
         };
@@ -95,8 +98,11 @@ app.put('/api/goals/:id', upload.single('image'), (req, res) => {
         if (req.file) {
             imageUrl = `/uploads/${req.file.filename}`;
         }
+        
+        const drinkType = req.body.drink || 'fino';
 
         config.frankFileGoals[goalIndex].target = targetNumber;
+        config.frankFileGoals[goalIndex].drink = drinkType;
         config.frankFileGoals[goalIndex].image = imageUrl;
         config.frankFileGoals[goalIndex].triggered = false; // Reset the trigger
 
@@ -231,11 +237,18 @@ async function scrapeData() {
         io.emit('update', { config, metrics });
 
         // Verificação da Meta Frank File Multi-Goal
-        const goalValue = config.modoArraial ? metrics.arraial : metrics.fino;
         let triggeredAny = false;
         
         for (let i = 0; i < config.frankFileGoals.length; i++) {
             const goal = config.frankFileGoals[i];
+            
+            let goalValue = 0;
+            if (goal.drink) {
+                goalValue = metrics[goal.drink] || 0;
+            } else {
+                goalValue = config.modoArraial ? metrics.arraial : metrics.fino;
+            }
+            
             if (!goal.triggered && goalValue >= goal.target) {
                 goal.triggered = true;
                 triggeredAny = true;
