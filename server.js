@@ -120,7 +120,7 @@ app.put('/api/goals/:id', upload.single('image'), (req, res) => {
 
 // Estado Global
 let config = {
-    url: 'https://services.3cket.com/staff/cashless-worzkone.php?search_workzone=9fd8ea4cd7dc4787985f419d2b2ddc12&search_staff=&subPage=byProducts&start_date=09-04-2026%2017:15&end_date=10-04-2026%2022:37&search_product=&month_view=0&view_mode=total',
+    url: 'https://services.3cket.com/staff/cashless-worzkone.php?start_date=09-04-2026+17%3A15&end_date=01-05-2026+22%3A37&search_staff=&search_workzone=9fd8ea4cd7dc4787985f419d2b2ddc12&search_product=&subPage=byProducts&view_mode=total&month_view=0',
     modoArraial: false,
     frankFileGoals: [] // { id, target, image, triggered }
 };
