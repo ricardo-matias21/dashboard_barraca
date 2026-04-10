@@ -1,7 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-const url = 'https://services.3cket.com/staff/cashless.php?search_workzone=&search_staff=98b0df709d424bb3bb29714a744fe58e&subPage=byProducts&start_date=17-10-2024%2023:09&end_date=16-03-2026%2017:50&search_product=&month_view=0&view_mode=total';
+const url = 'https://services.3cket.com/staff/cashless-worzkone.php?search_workzone=9fd8ea4cd7dc4787985f419d2b2ddc12&search_staff=&subPage=byProducts&start_date=09-04-2026%2017:15&end_date=10-04-2026%2022:37&search_product=&month_view=0&view_mode=total';
 
 const targetProducts = ['Fino', 'FIni Arraial', 'Bebida de Curso', 'Shot Nacional'];
 
